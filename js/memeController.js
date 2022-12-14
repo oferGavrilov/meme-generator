@@ -145,7 +145,8 @@ function onDeleteLine() {
     renderMemes(gCurrImage)
 }
 
-
-//place text on the top of the canvas
-//size the canvas fairly
-//move the text
+function onChangeStrokeColor(color){
+    changeStrokeColor(color)
+    gCtx.strokeStyle = color
+    renderMemes(gCurrImage)
+}

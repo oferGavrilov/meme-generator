@@ -45,6 +45,7 @@
                         <input class="text-area" type="text" oninput="onAddText(this.value)" placeholder="Text line.." />
                         <button class="next-text-btn btn" onclick="onSetNewLine()">Next Line</button>
                         <button class="delete-btn btn" onclick="onDeleteLine()">Delete</button>
+                        <input type="color" class="color-picker" onchange="onChangeStrokeColor(this.value)"></input>
                         
                     </div>
                     <button class="back-btn" onclick="closeEditor()">Back to gallery</button>

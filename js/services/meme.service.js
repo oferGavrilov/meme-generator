@@ -118,15 +118,28 @@ function moveLine(dx, dy) {
 
 
 function setSelectedLine(idx) {
+    gMeme.lines.forEach((_, idx) =>  gMeme.lines[idx].isSelected = false)
+    gMeme.selectedLineIdx = -1
+
     gMeme.lines[idx].isSelected = true
     gMeme.selectedLineIdx = idx
 }
-
+//edit
 function deleteLine() {
     const lineIdx = gMeme.selectedLineIdx
     console.log(lineIdx)
-    if(lineIdx >= 0) {
-        gMeme.lines.splice(lineIdx , 1)
+    if (lineIdx >= 0) {
+        gMeme.lines.splice(lineIdx, 1)
+    } else {
+        return
     }
-    console.log(lineIdx)
+    if (gMeme.lines.length) {
+        gMeme.selectedLineIdx = lineIdx === 1 ? gMeme.selectedLineIdx - 1 : 0
+        console.log(gMeme.selectedLineIdx)
+        gMeme.lines[gMeme.selectedLineIdx].isSelected = true
+    }
+}
+
+function changeStrokeColor(color) {
+    gMeme.lines[gMeme.selectedLineIdx].strokeColor = color
 }

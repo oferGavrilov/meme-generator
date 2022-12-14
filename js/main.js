@@ -15,11 +15,12 @@ function onInit() {
     renderGallery()
 }
 
+// in click on iamge top the view 
 function renderGallery() {
     const images = getImages()
     console.log(images)
     const strHtml = images.map(image =>{
-        return `<img src="${image.url}" class="image" onclick="openEditor(this , '${image.id}')"/>`
+        return `<img src="${image.url}"class="image" onclick="openEditor(this , '${image.id}')"/>`
     })
 
 
