@@ -1,0 +1,177 @@
+* {
+    box-sizing: border-box;
+    color: #040a2c;
+    font-family: montserrat;
+}
+
+body {
+    /* background-color: lightblue; */
+    margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0 0 1em;
+}
+
+img {
+    width: 100%;
+}
+
+a {
+    text-decoration: none;
+}
+
+:root {
+    --clr0: #ffffff;
+    --clr1: #e3e3e3;
+    --clr2: #ff7f00;
+}
+
+@font-face {
+    font-family: montserrat;
+    src: url(/fonts/Montserrat-Regular.ttf);
+}
+
+@font-face {
+    font-family: montserrat-thin;
+    src: url(/fonts/Montserrat-Thin.ttf);
+}
+
+
+
+/* header */
+.main-header {
+    background-color: var(--clr2);
+}
+
+.main-header .main-nav a {
+    display: flex;
+    flex-direction: column;
+    height: 70px;
+    padding: 0 20px;
+    justify-content: center;
+    color: var(--clr0);
+}
+
+/* search-area */
+
+.search-area {
+    background-color: lightgray;
+    padding: 40px;
+}
+
+.search {
+    height: 30px;
+    width: 250px;
+    margin: auto 30px;
+}
+
+.search-area .filter-tags a {
+    font-size: 18px;
+    padding: 0 20px;
+    color: var(--clr0);
+}
+
+/* main gallery */
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    justify-content: center;
+    align-content: center;
+    /* background-color: lightblue; */
+    height: 70%;
+    width: 80vw;
+    margin: 80px auto;
+}
+
+.image {
+    text-align: center;
+    height: 200px;
+    width: 200px;
+    background-color: lightcoral;
+    -webkit-filter: brightness(80%);
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    -ms-transition: all 1s ease;
+    transition: all 1s ease;
+}
+
+.image:hover {
+    -webkit-filter: brightness(100%);
+}
+
+/* meme editor */
+.meme-editor {
+    background-color: lightblue;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.canvas-container {
+    /* width: 50%; */
+    display: flex;
+    /* flex-basis: fill; */
+}
+
+.edit-tools {
+    position: relative;
+    border-radius: 1em;
+    flex-basis: 50%;
+    background-color: var(--clr1);
+}
+
+.back-btn{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border-radius: 1em;
+    border: none;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+/* footer */
+footer {
+    display: flex;
+    margin-bottom: 0;
+    padding: 25px;
+    background-color: var(--clr2);
+}
+
+
+
+
+/* logo */
+.logo {
+    padding: 0 20px;
+    color: var(--clr0);
+}
+
+/* helpers */
+
+.flex {
+    display: flex;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+.clean-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.hidden {
+    display: none;
+}
