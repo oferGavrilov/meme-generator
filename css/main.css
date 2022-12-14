@@ -116,6 +116,7 @@ a {
     padding: 20px;
     display: flex;
     justify-content: space-between;
+    height: 100vh;
 }
 
 .canvas-container {
@@ -123,18 +124,24 @@ a {
     height: 500px;
 }
 
-.edit-tools {
+.edit-container {
     position: relative;
     border-radius: 1em;
     flex-basis: 50%;
     background-color: var(--clr1);
     text-align: center;
+    height: 80vh;
 }
 .edit-tools .text-area{
-    display: flex;
+    display: block;
     text-align: center;
     margin: 10px auto;
+    font-size: 1.5rem;
 }
+.edit-tools > button{ 
+    font-size: 1.2rem;
+}
+
 
 .back-btn {
     position: absolute;
@@ -150,7 +157,7 @@ a {
 footer {
     display: flex;
     margin-bottom: 0;
-    padding: 25px;
+    padding: 45px;
     background-color: var(--clr2);
 }
 

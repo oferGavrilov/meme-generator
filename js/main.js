@@ -4,7 +4,6 @@ let gElCanvas
 let gCtx
 let gCurrImage
 
-const THOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 
 function onInit() {
     console.log('onInit')
@@ -53,7 +52,7 @@ function openEditor(imageUrl,imgId) {
     
     gCurrImage = imageUrl
     // console.log(imageUrl)
-    setPositions()
+    onEditorInit()
     drawImg(imageUrl)
     setSelectedImgID(imgId)
 }

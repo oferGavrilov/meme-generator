@@ -15,7 +15,8 @@ let gMeme = {
             strokeColor: 'black',
             textAlign: 'center',
             fontSize: 50,
-            fontFamily: 'arial'
+            fontFamily: 'arial',
+            isSelected: false
         },
         {// bottom line
             pos: {
@@ -27,7 +28,8 @@ let gMeme = {
             strokeColor: 'black',
             textAlign: 'center',
             fontSize: 50,
-            fontFamily: 'arial'
+            fontFamily: 'arial',
+            isSelected: false
         },
         {// middle line
             pos: {
@@ -39,7 +41,8 @@ let gMeme = {
             strokeColor: 'black',
             textAlign: 'center',
             fontSize: 50,
-            fontFamily: 'arial'
+            fontFamily: 'arial',
+            isSelected: false
         },
     ]
 }
@@ -57,7 +60,6 @@ function setSelectedImgID(id) {
 
 function addText(text) {
     gMeme.lines[gMeme.selectedLineIdx].text = text
-    console.log(gMeme.lines[gMeme.selectedLineIdx].text)
 }
 
 function getMeme() {
@@ -65,13 +67,11 @@ function getMeme() {
 }
 
 function markLine(line) {
-    console.log(line)
-    const lineWidth = gCtx.measureText(line.text).width + line.fontSize 
+    const lineWidth = gCtx.measureText(line.text).width + line.fontSize
     const lineHeight = line.fontSize
-    console.log('lineWidth', lineWidth, 'lineHeight', lineHeight)
 
     gCtx.strokeStyle = 'lightblue'
-    gCtx.strokeRect(line.pos.x - lineWidth/2, line.pos.y - lineHeight /2, lineWidth, lineHeight)
+    gCtx.strokeRect(line.pos.x - lineWidth / 2, line.pos.y - lineHeight / 2, lineWidth, lineHeight)
 }
 
 function setNewLine(text = 'new line') {
@@ -80,7 +80,6 @@ function setNewLine(text = 'new line') {
     // const pos = gMeme.lines[gMeme.selectedLineIdx].pos
     gMeme.selectedLineIdx += 1
     const pos = setPos(gMeme.selectedLineIdx)
-    console.log('setPos', pos)
     const line = {
         text,
         fontSize: 50,
@@ -88,13 +87,46 @@ function setNewLine(text = 'new line') {
         fillColor: 'white',
         strokeColor: 'black',
         pos: {
-          x: pos.x,
-          y: pos.y,
+            x: pos.x,
+            y: pos.y,
         },
         fontFamily: 'arial',
-      }
-      gMeme.lines.push(line)
-      gMeme.selectedLineIdx = gMeme.lines.length - 1
-      markLine(gMeme.lines[gMeme.selectedLineIdx])
-    
+    }
+    gMeme.lines.push(line)
+    gMeme.selectedLineIdx = gMeme.lines.length - 1
+    markLine(gMeme.lines[gMeme.selectedLineIdx])
+
+}
+
+///edit 
+function isLineClicked(pos) {
+    const clickedLine = gMeme.lines.find((line) => {
+        if (
+            Math.sqrt((pos.x - line.pos.x) ** 2 + (pos.y - line.pos.y) ** 2) <= gCtx.measureText(line.text).width / 2) {
+            return line
+        }
+    })
+
+    return clickedLine
+}
+
+function moveLine(dx, dy) {
+    console.log(dx, dy)
+    gMeme.lines[gMeme.selectedLineIdx].pos.x += dy
+    gMeme.lines[gMeme.selectedLineIdx].pos.y += dx
+}
+
+
+function setSelectedLine(idx) {
+    gMeme.lines[idx].isSelected = true
+    gMeme.selectedLineIdx = idx
+}
+
+function deleteLine() {
+    const lineIdx = gMeme.selectedLineIdx
+    console.log(lineIdx)
+    if(lineIdx >= 0) {
+        gMeme.lines.splice(lineIdx , 1)
+    }
+    console.log(lineIdx)
 }
