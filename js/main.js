@@ -2,6 +2,7 @@
 
 let gElCanvas
 let gCtx
+let gCurrImage
 
 const THOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 
@@ -12,14 +13,29 @@ function onInit() {
     gElCanvas.style.backgroundColor = 'blue'
 
     resizeCanvas()
-    renderMemes()
+    renderGallery()
 }
+
+function renderGallery() {
+    const images = getImages()
+    console.log(images)
+    const strHtml = images.map(image =>{
+        return `<img src="${image.url}" class="image" onclick="openEditor(this , '${image.id}')"/>`
+    })
+
+
+    const elGrid = document.querySelector('.grid-container')
+    elGrid.innerHTML = strHtml.join('')
+}
+
+
 
 function resizeCanvas() {
-    console.dir(gElCanvas)
     const elContainer = document.querySelector('.canvas-container')
-    // gElCanvas.width = elContainer.width
-    // gElCanvas.height = offsetHeight.height
+    console.dir(elContainer)
+    // gElCanvas.width = elContainer.offsetWidth
+    // gElCanvas.height = elContainer.offsetHeight
+    console.log(gElCanvas.width, gElCanvas.height)
 }
 
 
@@ -30,14 +46,16 @@ function resizeCanvas() {
 
 
 
-function openEditor(imageUrl) {
+function openEditor(imageUrl,imgId) {
     document.querySelector('.search-area').classList.add('hidden')
     document.querySelector('.grid-container').classList.add('hidden')
     document.querySelector('.meme-editor').classList.remove('hidden')
     
-    
-    console.log(imageUrl)
+    gCurrImage = imageUrl
+    // console.log(imageUrl)
+    setPositions()
     drawImg(imageUrl)
+    setSelectedImgID(imgId)
 }
 
 function closeEditor() {

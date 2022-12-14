@@ -10,59 +10,61 @@
 </head>
 
 <body onload="onInit()">
-    <header class="main-header flex space-between">
-        <h2 class="logo">Logo</h2>
-        <nav class="main-nav">
-            <ul class="nav-bar flex clean-list">
-                <li><a href="#">Gallery</a></li>
-                <li><a href="#">Memes</a></li>
-                <li><a href="#">About</a></li>
+        <header class="main-header flex space-between">
+            <h2 class="logo">Logo</h2>
+            <nav class="main-nav">
+                <ul class="nav-bar flex clean-list">
+                    <li><a href="#">Gallery</a></li>
+                    <li><a href="#">Memes</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section class="search-area flex space-between">
+            <input class="search" type="search" placeholder="Search image.." />
+            <ul class="filter-tags flex clean-list">
+                <li><a href="#">funny</a></li>
+                <li><a href="#">men</a></li>
+                <li><a href="#">woman</a></li>
             </ul>
-        </nav>
-    </header>
-
-    <section class="search-area flex space-between">
-        <input class="search" type="search" placeholder="Search image.." />
-        <ul class="filter-tags flex clean-list">
-            <li><a href="#">funny</a></li>
-            <li><a href="#">men</a></li>
-            <li><a href="#">woman</a></li>
-        </ul>
-    </section>
-
-    <main>
-        <div class="grid-container">
-
-        </div>
-
-        <section class="meme-editor flex hidden">
-            <div class="canvas-container">
-                <canvas class="my-canvas" width="400" height="600"></canvas>
-            </div>
-            <div class="edit-tools">
-                <input class="text" type="text" placeholder="Text line.." />
-                <button class="next-text-btn">next text</button>
-                <button class="delete-btn">delete</button>
-                <button class="back-btn" onclick="closeEditor()">Back to gallery</button>
-
-            </div>
         </section>
 
-    </main>
+        <main>
+            <div class="grid-container">
 
-    <footer class="hidden1">
-        <!-- <img src="img/me.jpg" alt=""> -->
-        <h5>Programmer</h5>
-        <ul class="social-links">
-            <li><a href="#">Facebook</a></li>
-            <li><a href="#">Twitter</a></li>
-            <li><a href="#">Git hub</a></li>
-        </ul>
-    </footer>
+            </div>
 
+            <section class="meme-editor flex hidden">
+                <div class="canvas-container">
+                    <canvas class="my-canvas" width="500" height="500"></canvas>
+                </div>
+                <div class="edit-tools">
+                    <input class="text-area" type="text" oninput="onAddText(this.value)" placeholder="Text line.." />
+                    <button class="next-text-btn btn">next text</button>
+                    <button class="delete-btn btn">delete</button>
+                    <button class="add-line btn" onclick="onSetNewLine()">+</button>
 
+                    <button class="back-btn" onclick="closeEditor()">Back to gallery</button>
+
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="hidden1">
+            <!-- <img src="img/me.jpg" alt=""> -->
+            <h5>Programmer</h5>
+            <ul class="social-links">
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">Git hub</a></li>
+            </ul>
+        </footer>
+
+    <script src="js/services/meme.service.js"></script>    
     <script src="js/services/utils.service.js"></script>
-    <script src="js/services/memeService.js"></script>
+    <script src="js/services/gallery.service.js"></script>
     <script src="js/memeController.js"></script>
     <script src="js/main.js"></script>
 </body>
