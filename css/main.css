@@ -34,17 +34,17 @@ a {
 
 @font-face {
     font-family: montserrat;
-    src: url("/fonts/Montserrat-Regular.ttf");
+    src: url("../fonts/Montserrat-Regular.ttf");
 }
 
 @font-face {
     font-family: montserrat-thin;
-    src: url("/fonts/Montserrat-Thin.ttf");
+    src: url("../fonts/Montserrat-Thin.ttf");
 }
 
 @font-face {
     font-family: fa;
-    src: url("/fonts/font-awesome/fa-solid-900.ttf");
+    src: url("../fonts/font-awesome/fa-solid-900.ttf");
 }
 
 
