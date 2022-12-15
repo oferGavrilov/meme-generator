@@ -2,6 +2,7 @@
     box-sizing: border-box;
     color: #040a2c;
     font-family: montserrat;
+    overflow-x: hidden;
 }
 
 body {
@@ -43,6 +44,33 @@ a {
 }
 
 
+/* layout */
+
+.main-layout>*:not(.full) {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+/* screens */
+.main-screen {
+    position: fixed;
+    inset: 0;
+    background-color: #000;
+    background-color: rgb(0 0 0 / 70%);
+    cursor: pointer;
+    pointer-events: none;
+
+    opacity: 0;
+
+    transition: opacity .6s;
+}
+
+body.menu-open .main-screen {
+    pointer-events: auto;
+    opacity: 1;
+}
+
+
 /* header */
 .main-header {
     background-color: var(--clr2);
@@ -57,17 +85,25 @@ a {
     color: var(--clr0);
 }
 
+.menu-toggle-btn {
+    margin: 10px;
+    font-size: 1.5rem;
+    background-color: var(--clr2);
+    border: none;
+}
+
 /* search-area */
 
 .search-area {
     background-color: lightgray;
-    padding: 40px;
+    padding: 20px 0;
 }
 
 .search {
-    height: 30px;
-    width: 250px;
-    margin: auto 30px;
+    height: 40px;
+    width: 280px;
+    text-align: center;
+    /* margin: auto 30px; */
 }
 
 .search-area .filter-tags a {
@@ -76,108 +112,117 @@ a {
     color: var(--clr0);
 }
 
+
 /* main gallery */
 
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 10px;
     justify-content: center;
     align-content: center;
     /* background-color: lightblue; */
     height: 70%;
-    width: 80vw;
-    margin: 80px auto;
+    /* width: 80vw; */
+    margin: 20px auto;
 }
 
 .image {
-    text-align: center;
-    height: 200px;
-    width: 200px;
+    /* text-align: center; */
+    justify-self: center;
+    /* height: 200px; */
+    /* width: 200px; */
     background-color: lightcoral;
-    -webkit-filter: brightness(80%);
-    -webkit-transition: all 1s ease;
-    -moz-transition: all 1s ease;
-    -o-transition: all 1s ease;
-    -ms-transition: all 1s ease;
-    transition: all 1s ease;
+    cursor: pointer;
+
+    transition: filter .4s;
 }
 
 .image:hover {
-    -webkit-filter: brightness(100%);
+    filter: brightness(90%);
 }
 
-/* meme editor */
 .meme-editor {
-    background-color: lightblue;
+    /* background-color: lightblue; */
     padding: 20px;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    height: 100vh;
+    /* height: 100vh; */
 }
-
 .canvas-container {
-    width: 500px;
-    height: 500px;
+    width: 100%;
+    /* height: 400px; */
+    cursor: grab;
 }
 
 .edit-container {
     position: relative;
     border-radius: 1em;
-    flex-basis: 50%;
+    margin: 50px 0;
+    /* flex-basis: 50%; */
     background-color: var(--clr1);
     text-align: center;
-    height: 80vh;
+    height: 100vh;
+    min-width: 350px;
 }
-.edit-tools .text-area{
+
+.edit-tools .text-area {
     display: block;
     text-align: center;
-    margin: 10px auto;
+    border: 1px solid black;
+    margin: auto;
+    margin: 50px auto 10px;
     font-size: 1.5rem;
 }
-.edit-tools > button{ 
+
+.edit-tools>button {
     font-size: 1.2rem;
 }
 
 /* grid-tools-container */
-.grid-tools-container{
+.grid-tools-container {
     display: grid;
-    grid-template-columns: repeat(5,1fr);
+    grid-template-columns: repeat(5, 1fr);
     grid-template-rows: 1fr 1fr;
     margin: 20px auto;
-    width: 80%;
+    width: 90%;
     height: 150px;
     /* gap: 10px; */
     place-items: center;
     background-color: var(--clr0);
     border: .6px solid black;
 }
-.grid-tools-container > button {
-    padding: 15px 20px;
+
+.grid-tools-container>button {
+    padding: 10px 15px;
     height: fit-content;
     width: fit-content;
     font-size: 1.5em;
     border: .6px solid black;
 }
 
-.btn{
+.btn {
     cursor: pointer;
     border: none;
     font-size: 1.5em;
 }
+
 .back-btn {
     position: absolute;
     top: 10px;
     right: 10px;
 }
-.download-btn{
+
+.download-btn {
     position: absolute;
     right: 10px;
     bottom: 10px;
     padding: 10px;
     border: 1px solid black;
 }
-.share-btn{
+
+.share-btn {
     position: absolute;
     left: 10px;
     bottom: 10px;
@@ -202,7 +247,7 @@ footer {
 }
 
 /* icons */
-.icon{
+.icon {
     height: 20px;
     width: 20px;
 }
@@ -225,4 +270,128 @@ footer {
 
 .hidden {
     display: none;
+}
+
+/* Mobile only */
+@media (max-width: 830px) {
+    .main-nav ul {
+        position: fixed;
+        top: 0;
+        right: 0;
+        flex-direction: column;
+        height: 100vh;
+        background: rgb(255 255 255 / 80%);
+        border-inline-start: 1px solid #ccc;
+        min-width: 200px;
+        transform: translateX(100%);
+
+        z-index: 1;
+        transition: transform .6s, box-shadow .6s;
+    }
+
+    body.menu-open .main-nav ul {
+        transform: translateX(0);
+        box-shadow: -6px 0px 14px rgb(0 0 0 / 20%);
+    }
+
+    .main-header .main-nav a {
+        display: block;
+        text-align: center;
+        padding: 13px 10px;
+        border-bottom: 1px solid #ccc;
+        background-color: #fff;
+
+        transition: background-color .6s;
+    }
+
+    .main-header .main-nav a:hover {
+        background-color: var(--clr-1);
+    }
+
+    /* meme editor */
+
+    .hidden {
+        display: none;
+    }
+}
+
+/* Medium */
+
+@media (min-width:830px) {
+    .menu-toggle-btn {
+        display: none;
+    }
+    .main-header {
+        background-color: var(--clr2);
+    }
+
+    .main-header .main-nav a {
+        display: flex;
+        flex-direction: column;
+        height: 70px;
+        padding: 0 20px;
+        justify-content: center;
+        color: var(--clr0);
+    }
+
+    .search-area {
+        background-color: lightgray;
+        padding: 40px;
+    }
+
+    .search {
+        height: 30px;
+        width: 250px;
+        margin: auto 30px;
+    }
+
+    .search-area .filter-tags a {
+        font-size: 18px;
+        padding: 0 20px;
+        color: var(--clr0);
+    }
+
+    .meme-editor {
+        /* background-color: lightblue; */
+        padding: 20px;
+        display: flex;
+        flex-direction: row;
+        /* justify-content: space-between; */
+        height: 100vh;
+    }
+
+    .canvas-container {
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .edit-container {
+        position: relative;
+        border-radius: 1em;
+        margin: 0;
+        background-color: var(--clr1);
+        text-align: center;
+        height: 80vh;
+        width: 50vw;
+    }
+
+    .edit-tools .text-area {
+        display: block;
+        text-align: center;
+        margin: 10px auto;
+        font-size: 1.5rem;
+    }
+
+    .edit-tools>button {
+        font-size: 1.2rem;
+    }
+    .hidden {
+        display: none;
+    }
+}
+
+/* desktop */
+@media (min-width: 960px) {
+ 
+    
 }

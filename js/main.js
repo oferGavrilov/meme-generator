@@ -6,11 +6,11 @@ let gCurrImage
 
 
 function onInit() {
-    gElCanvas = document.querySelector('.my-canvas')
+    gElCanvas = document.querySelector('#my-canvas')
     gCtx = gElCanvas.getContext('2d')
-    gElCanvas.style.backgroundColor = 'blue'
+    // gElCanvas.style.backgroundColor = 'blue'
 
-    resizeCanvas()
+    // resizeCanvas()
     renderGallery()
 }
 
@@ -18,7 +18,7 @@ function onInit() {
 function renderGallery() {
     const images = getImages()
     console.log(images)
-    const strHtml = images.map(image =>{
+    const strHtml = images.map(image => {
         return `<img src="${image.url}"class="image" onclick="openEditor(this , '${image.id}')"/>`
     })
 
@@ -29,27 +29,17 @@ function renderGallery() {
 
 
 
-function resizeCanvas() {
-    const elContainer = document.querySelector('.canvas-container')
-    console.dir(elContainer)
-    // gElCanvas.width = elContainer.offsetWidth
-    // gElCanvas.height = elContainer.offsetHeight
-    console.log(gElCanvas.width, gElCanvas.height)
+
+
+function onToggleMenu() {
+    document.body.classList.toggle('menu-open')
 }
 
-
-
-
-
-
-
-
-
-function openEditor(imageUrl,imgId) {
+function openEditor(imageUrl, imgId) {
     document.querySelector('.search-area').classList.add('hidden')
     document.querySelector('.grid-container').classList.add('hidden')
     document.querySelector('.meme-editor').classList.remove('hidden')
-    
+
     gCurrImage = imageUrl
     // console.log(imageUrl)
     onEditorInit()
@@ -67,4 +57,12 @@ function closeEditor() {
 
 function drawImg(image) {
     gCtx.drawImage(image, 0, 0, gElCanvas.width, gElCanvas.height)
+}
+
+function downloadMeme(link) {
+    resetMarkLine()
+    const data = gElCanvas.toDataURL()
+    console.log(link)
+    link.href = data
+    link.download = 'my-meme.jpg'
 }

@@ -6,9 +6,22 @@ const THOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 
 function onEditorInit() {
     setPositions()
+    resizeCanvas()
     addListeners()
 }
 
+
+function resizeCanvas() {
+    const elContainer = document.querySelector('.canvas-container')
+    gElCanvas.width = elContainer.offsetWidth
+    let heightRatio = 1
+    gElCanvas.height = gElCanvas.width * heightRatio
+    // gElCanvas.width = window.innerWidth -60
+    // gElCanvas.height = elContainer.offsetHeight
+    // console.log("height:",gElCanvas.height, 'width:',gElCanvas.width)
+    setPositions()
+    renderMemes(gCurrImage)
+}
 
 function onAddText(text) {
     // let text = document.querySelector('.text-area').value
@@ -18,6 +31,7 @@ function onAddText(text) {
 
 function setPositions() {
     const meme = getMeme()
+    console.log(gElCanvas.width)
     meme.lines[0].pos = {
         x: gElCanvas.width / 2,
         y: 50
@@ -43,9 +57,9 @@ function renderMemes(image) {
     gCtx.drawImage(image, 0, 0, gElCanvas.width, gElCanvas.height)
 
 
-
     const memes = getMeme()
     const lines = memes.lines
+    console.log(lines)
     lines.forEach(line => makeLineText(line))
     markLine(gMeme.lines[gMeme.selectedLineIdx])
 }
@@ -58,6 +72,7 @@ function makeLineText(line) {
     gCtx.font = `${line.fontSize}px ${line.fontFamily}`
     gCtx.textAlign = line.textAlign
     gCtx.textBaseline = 'middle'
+    console.log(line.pos.x, line.pos.y)
     gCtx.fillText(line.text, line.pos.x, line.pos.y)
     gCtx.strokeText(line.text, line.pos.x, line.pos.y)
 }
@@ -164,7 +179,6 @@ function onChangeTextSize(size) {
 
     if(size === 'increase') changeTextSize(10)
     else if(memeSize > 10) changeTextSize(-10)
-    console.log(meme.lines[gMeme.selectedLineIdx].fontSize)
     renderMemes(gCurrImage)
 }
 
@@ -176,4 +190,9 @@ function onSwitchLine() {
 function onChangeAlignment(alignment){
     changeAlignment(alignment)
     renderMemes(gCurrImage)
+}
+
+function onDownload(link) {
+    renderMemes(gCurrImage)
+    downloadMeme(link)
 }

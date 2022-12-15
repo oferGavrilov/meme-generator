@@ -72,6 +72,7 @@ function getMeme() {
 }
 
 function markLine(line) {
+    if(!line) return 
     const lineWidth = gCtx.measureText(line.text).width + line.fontSize
     const lineHeight = line.fontSize
 
@@ -81,7 +82,7 @@ function markLine(line) {
 
 function setNewLine(text = 'new line') {
     document.querySelector('.text-area').value = ""
-
+    // resetSelectedLines()
     // const pos = gMeme.lines[gMeme.selectedLineIdx].pos
     gMeme.selectedLineIdx += 1
     const pos = setPos(gMeme.selectedLineIdx)
@@ -123,12 +124,23 @@ function moveLine(dx, dy) {
 
 
 function setSelectedLine(idx) {
+    // resetSelectedLines()
     gMeme.lines.forEach((_, idx) => gMeme.lines[idx].isSelected = false)
     gMeme.selectedLineIdx = -1
 
     gMeme.lines[idx].isSelected = true
     gMeme.selectedLineIdx = idx
 }
+
+function resetMarkLine() {
+    gMeme.lines.forEach((_, idx)=> {
+        gMeme.lines[idx].isSelected = false
+    })
+    gMeme.selectedLineIdx = -1
+}
+
+
+
 //edit
 function deleteLine() {
     const lineIdx = gMeme.selectedLineIdx
@@ -155,6 +167,8 @@ function changeFillColor(color) {
 function changeTextSize(size) {
     gMeme.lines[gMeme.selectedLineIdx].fontSize += size
 }
+
+
 
 function switchLine() {
     console.log(gMeme.lines)

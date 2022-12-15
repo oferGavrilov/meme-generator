@@ -11,8 +11,11 @@
 
 </head>
 
-<body onload="onInit()">
-    <header class="main-header flex space-between">
+<body onload="onInit()" class="main-layout">
+
+    <div class="main-screen full" onclick="onToggleMenu()"></div>
+
+    <header class="main-header flex space-between full">
         <h2 class="logo">Logo</h2>
         <nav class="main-nav">
             <ul class="nav-bar flex clean-list">
@@ -21,25 +24,30 @@
                 <li><a href="#">About</a></li>
             </ul>
         </nav>
+        <button class="menu-toggle-btn" onclick="onToggleMenu()">☰</button>
     </header>
 
-    <section class="search-area flex space-between">
-        <input class="search" type="search" placeholder="Search image.." />
-        <ul class="filter-tags flex clean-list">
-            <li><a href="#">funny</a></li>
-            <li><a href="#">men</a></li>
-            <li><a href="#">woman</a></li>
-        </ul>
+    <section class="search-area flex  full">
+        <nav class="search-nav flex main-layout">
+
+            <input class="search" type="search" placeholder="SEARCH" />
+            <ul class="filter-tags flex clean-list full">
+                <li><a href="#">funny</a></li>
+                <li><a href="#">men</a></li>
+                <li><a href="#">woman</a></li>
+            </ul>
+
+        </nav>
     </section>
 
     <main>
-        <div class="grid-container">
+        <div class="grid-container main-layout">
 
         </div>
 
-        <section class="meme-editor flex hidden">
+        <section class="meme-editor flex hidden full">
             <div class="canvas-container">
-                <canvas class="my-canvas" width="600" height="600"></canvas>
+                <canvas id="my-canvas"></canvas>
             </div>
             <div class="edit-container">
                 <div class="edit-tools">
@@ -52,9 +60,11 @@
                     <button class="next-line-btn btn" title="Switch line" onclick="onSwitchLine()"><img class="icon"
                             src="icons/next-line.png"></button>
                     <div class="grid-tools-container">
-                        <button class="increase-text btn" title="increase text" value="increase" onclick="onChangeTextSize(this.value)">
+                        <button class="increase-text btn" title="increase text" value="increase"
+                            onclick="onChangeTextSize(this.value)">
                             <img class="icon" src="icons/increase.png"></button>
-                        <button class="decrease-text btn" title="Decrease text" value="decrease" onclick="onChangeTextSize(this.value)">
+                        <button class="decrease-text btn" title="Decrease text" value="decrease"
+                            onclick="onChangeTextSize(this.value)">
                             <img class="icon" src="icons/decrease.png" alt=""></button>
                         <button class="align-left-btn btn" title="Right" value="start"
                             onclick="onChangeAlignment(this.value)"><img class="icon"
@@ -66,22 +76,23 @@
                             onclick="onChangeAlignment(this.value)"><img class="icon"
                                 src="icons/align-to-right.png"></button>
                         <input type="color" title="Stroke-color" class="color-picker"
-                            onchange="onChangeStrokeColor(this.value)"></input>
+                            oninput="onChangeStrokeColor(this.value)"></input>
                         <input type="color" value="#ffffff" title="fill-color" class="color-picker"
-                            onchange="onChangeFillColor(this.value)"></input>
+                            oninput="onChangeFillColor(this.value)"></input>
                     </div>
 
                 </div>
-                <button class="download-btn btn" onclick="onDownload()" title="Download meme">Download</button>
+                <button class="download-btn btn"><a href="#" onclick="onDownload(this)">Download</a></button>
                 <button class="share-btn btn" onclick="onShare()" title="Share meme">Share</button>
-                <button class="back-btn btn" onclick="closeEditor()" title="Back to gallery"><img class="icon" src="icons/home.png" alt="home"></button>
+                <button class="back-btn btn" onclick="closeEditor()" title="Back to gallery"><img class="icon"
+                        src="icons/home.png" alt="home"></button>
 
             </div>
         </section>
 
     </main>
 
-    <footer class="hidden1">
+    <footer class="hidden1 full">
         <!-- <img src="img/me.jpg" alt=""> -->
         <h5>Programmer</h5>
         <ul class="social-links">
