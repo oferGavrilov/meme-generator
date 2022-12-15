@@ -26,8 +26,12 @@ function setPositions() {
         x: gElCanvas.width / 2,
         y: gElCanvas.height - 50
     }
+    meme.lines[2].pos = {
+        x: gElCanvas.width / 2,
+        y: gElCanvas.height /2
+    }
 }
-
+//delete func
 function setPos(idx) {
     if (idx === 0) return { x: gElCanvas.width / 2, y: 50 }
     else if (idx === 1) return { x: gElCanvas.width / 2, y: gElCanvas.height - 50 }
@@ -148,5 +152,15 @@ function onDeleteLine() {
 function onChangeStrokeColor(color){
     changeStrokeColor(color)
     gCtx.strokeStyle = color
+    renderMemes(gCurrImage)
+}
+
+function onSwitchLine() {
+    switchLine()
+    renderMemes(gCurrImage)
+}
+
+function onChangeAlignment(alignment){
+    changeAlignment(alignment)
     renderMemes(gCurrImage)
 }

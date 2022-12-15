@@ -7,65 +7,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meme Generator</title>
     <link rel="stylesheet" href="css/main.css">
+
 </head>
 
 <body onload="onInit()">
-        <header class="main-header flex space-between">
-            <h2 class="logo">Logo</h2>
-            <nav class="main-nav">
-                <ul class="nav-bar flex clean-list">
-                    <li><a href="#">Gallery</a></li>
-                    <li><a href="#">Memes</a></li>
-                    <li><a href="#">About</a></li>
-                </ul>
-            </nav>
-        </header>
-
-        <section class="search-area flex space-between">
-            <input class="search" type="search" placeholder="Search image.." />
-            <ul class="filter-tags flex clean-list">
-                <li><a href="#">funny</a></li>
-                <li><a href="#">men</a></li>
-                <li><a href="#">woman</a></li>
+    <header class="main-header flex space-between">
+        <h2 class="logo">Logo</h2>
+        <nav class="main-nav">
+            <ul class="nav-bar flex clean-list">
+                <li><a href="#">Gallery</a></li>
+                <li><a href="#">Memes</a></li>
+                <li><a href="#">About</a></li>
             </ul>
-        </section>
+        </nav>
+    </header>
 
-        <main>
-            <div class="grid-container">
+    <section class="search-area flex space-between">
+        <input class="search" type="search" placeholder="Search image.." />
+        <ul class="filter-tags flex clean-list">
+            <li><a href="#">funny</a></li>
+            <li><a href="#">men</a></li>
+            <li><a href="#">woman</a></li>
+        </ul>
+    </section>
+
+    <main>
+        <div class="grid-container">
+
+        </div>
+
+        <section class="meme-editor flex hidden">
+            <div class="canvas-container">
+                <canvas class="my-canvas" width="600" height="600"></canvas>
+            </div>
+            <div class="edit-container">
+                <div class="edit-tools">
+
+                    <input class="text-area" type="text" oninput="onAddText(this.value)" placeholder="Text line.." />
+                    <button class="new-line-btn btn" title="New line" onclick="onSetNewLine()"></button>
+                    <button class="delete-btn btn" title="Delete line" onclick="onDeleteLine()"></button>
+                    <button class="next-line-btn btn" title="Switch line" onclick="onSwitchLine()"></button>
+                    <div class="grid-tools-container">
+                        <button class="increase-text btn" title="increase text" onclick="onIncreaseText">+</button>
+                        <button class="decrease-text btn" title="Decrease text" onclick="onDecreaseText">-</button>
+                        <button class="align-left-btn btn" title="Right" value="start" onclick="onChangeAlignment(this.value)"></button>
+                        <button class="align-center-btn btn" title="Center" value="center" onclick="onChangeAlignment(this.value)"></button>
+                        <button class="align-right-btn btn" title="Left" value="end" onclick="onChangeAlignment(this.value)"></button>
+                        <input type="color" title="Stroke-color" class="color-picker" onchange="onChangeStrokeColor(this.value)"></input>
+                        <input type="color" value="#ffffff" title="fill-color" class="color-picker" onchange="onChangeFillColor(this.value)"></input>
+                    </div>
+
+                </div>
+                <button class="download-btn btn" onclick="onDownload()" title="Download meme">Download</button>
+                <button class="share-btn btn" onclick="onShare()" title="Share meme">Share</button>
+                <button class="back-btn btn" onclick="closeEditor()" title="Back to gallery"></button>
 
             </div>
+        </section>
 
-            <section class="meme-editor flex hidden">
-                <div class="canvas-container">
-                    <canvas class="my-canvas" width="600" height="600"></canvas>
-                </div>
-                <div class="edit-container">
-                    <div class="edit-tools">
+    </main>
 
-                        <input class="text-area" type="text" oninput="onAddText(this.value)" placeholder="Text line.." />
-                        <button class="next-text-btn btn" onclick="onSetNewLine()">Next Line</button>
-                        <button class="delete-btn btn" onclick="onDeleteLine()">Delete</button>
-                        <input type="color" class="color-picker" onchange="onChangeStrokeColor(this.value)"></input>
-                        
-                    </div>
-                    <button class="back-btn" onclick="closeEditor()">Back to gallery</button>
+    <footer class="hidden1">
+        <!-- <img src="img/me.jpg" alt=""> -->
+        <h5>Programmer</h5>
+        <ul class="social-links">
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Twitter</a></li>
+            <li><a href="#">Git hub</a></li>
+        </ul>
+    </footer>
 
-                </div>
-            </section>
-
-        </main>
-
-        <footer class="hidden1">
-            <!-- <img src="img/me.jpg" alt=""> -->
-            <h5>Programmer</h5>
-            <ul class="social-links">
-                <li><a href="#">Facebook</a></li>
-                <li><a href="#">Twitter</a></li>
-                <li><a href="#">Git hub</a></li>
-            </ul>
-        </footer>
-
-    <script src="js/services/meme.service.js"></script>    
+    <script src="js/services/meme.service.js"></script>
     <script src="js/services/utils.service.js"></script>
     <script src="js/services/gallery.service.js"></script>
     <script src="js/memeController.js"></script>

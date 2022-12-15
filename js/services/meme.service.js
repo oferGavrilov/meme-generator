@@ -10,7 +10,7 @@ let gMeme = {
                 x: 0,
                 y: 0,
             },
-            text: 'random',
+            text: 'Type',
             fillColor: 'white',
             strokeColor: 'black',
             textAlign: 'center',
@@ -61,6 +61,11 @@ function setSelectedImgID(id) {
 function addText(text) {
     gMeme.lines[gMeme.selectedLineIdx].text = text
 }
+
+// function clearLines() {
+//     gMeme.lines.splice(1,gMeme.lines.length-1)
+// }
+
 
 function getMeme() {
     return gMeme
@@ -118,7 +123,7 @@ function moveLine(dx, dy) {
 
 
 function setSelectedLine(idx) {
-    gMeme.lines.forEach((_, idx) =>  gMeme.lines[idx].isSelected = false)
+    gMeme.lines.forEach((_, idx) => gMeme.lines[idx].isSelected = false)
     gMeme.selectedLineIdx = -1
 
     gMeme.lines[idx].isSelected = true
@@ -142,4 +147,37 @@ function deleteLine() {
 
 function changeStrokeColor(color) {
     gMeme.lines[gMeme.selectedLineIdx].strokeColor = color
+}
+
+function switchLine() {
+    console.log(gMeme.lines)
+    if (gMeme.selectedLineIdx >= 0) {
+        if (gMeme.selectedLineIdx >= gMeme.lines.length - 1) {
+            gMeme.lines[gMeme.selectedLineIdx].isSelected = false
+            gMeme.selectedLineIdx = 0
+            gMeme.lines[gMeme.selectedLineIdx].isSelected = true
+        } else {
+            gMeme.lines[gMeme.selectedLineIdx].isSelected = false
+            gMeme.selectedLineIdx++
+            gMeme.lines[gMeme.selectedLineIdx].isSelected = true
+        }
+    } else {
+        gMeme.selectedLineIdx = 0
+        gMeme.lines[0].isSelected = true
+    }
+}
+
+function changeAlignment(alignment) {
+    const line = gMeme.lines[gMeme.selectedLineIdx]
+    switch (alignment) {
+        case 'start':
+            line.pos.x = gElCanvas.width / 4
+            break
+        case 'end':
+            line.pos.x = gElCanvas.width - gElCanvas.width / 4
+            break
+        case 'center':
+            line.pos.x = gElCanvas.width / 2
+            break    
+    }
 }

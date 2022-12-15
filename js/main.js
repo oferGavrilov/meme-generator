@@ -6,7 +6,6 @@ let gCurrImage
 
 
 function onInit() {
-    console.log('onInit')
     gElCanvas = document.querySelector('.my-canvas')
     gCtx = gElCanvas.getContext('2d')
     gElCanvas.style.backgroundColor = 'blue'
@@ -55,10 +54,12 @@ function openEditor(imageUrl,imgId) {
     // console.log(imageUrl)
     onEditorInit()
     drawImg(imageUrl)
+    renderMemes(gCurrImage)
     setSelectedImgID(imgId)
 }
 
 function closeEditor() {
+
     document.querySelector('.search-area').classList.remove('hidden')
     document.querySelector('.grid-container').classList.remove('hidden')
     document.querySelector('.meme-editor').classList.add('hidden')

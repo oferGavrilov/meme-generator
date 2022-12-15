@@ -34,16 +34,18 @@ a {
 
 @font-face {
     font-family: montserrat;
-    src: url(/fonts/Montserrat-Regular.ttf);
+    src: url("/fonts/Montserrat-Regular.ttf");
 }
 
 @font-face {
     font-family: montserrat-thin;
-    src: url(/fonts/Montserrat-Thin.ttf);
+    src: url("/fonts/Montserrat-Thin.ttf");
 }
 
-
-
+@font-face {
+    font-family: fa;
+    src: url("/fonts/font-awesome/fa-solid-900.ttf");
+}
 
 
 /* header */
@@ -142,15 +144,62 @@ a {
     font-size: 1.2rem;
 }
 
+/* grid-tools-container */
+.grid-tools-container{
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-template-rows: 1fr 1fr;
+    margin: 20px auto;
+    width: 80%;
+    height: 150px;
+    /* gap: 10px; */
+    place-items: center;
+    background-color: var(--clr0);
+    border: .6px solid black;
+}
+.grid-tools-container > button {
+    padding: 15px 20px;
+    height: fit-content;
+    width: fit-content;
+    font-size: 1.5em;
+    border: .6px solid black;
+}
 
+.btn{
+    cursor: pointer;
+    border: none;
+    font-size: 1.5em;
+}
 .back-btn {
     position: absolute;
     top: 10px;
     right: 10px;
-    border-radius: 1em;
-    border: none;
-    font-size: 1em;
-    cursor: pointer;
+}
+.download-btn{
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    padding: 10px;
+    border: 1px solid black;
+}
+.share-btn{
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    padding: 10px;
+    border: 1px solid black;
+}
+.align-left-btn::before{
+    font-family: fa;
+    content: "\f036";
+}
+.align-center-btn::before{
+    font-family: fa;
+    content: "\f037";
+}
+.align-right-btn::before{
+    font-family: fa;
+    content: "\f038";
 }
 
 /* footer */
@@ -169,6 +218,32 @@ footer {
     padding: 0 20px;
     color: var(--clr0);
 }
+
+
+
+
+/* font awesome */
+.next-line-btn::before {
+    font-family: fa;
+    content:"\f362" ;
+}
+.delete-btn::before{
+    font-family: fa;
+    content: "\f1f8";
+}
+.new-line-btn::before{
+    font-family: fa;
+    content: "\2b";
+}
+.back-btn::before{
+    font-family: fa;
+    content: "\f015";
+}
+.increase-text::before, .decrease-text::before{
+    font-family: fa;
+    content: "\41";
+}
+
 
 /* helpers */
 
