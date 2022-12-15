@@ -94,7 +94,6 @@ function getEvPos(ev) {
         x: ev.offsetX,
         y: ev.offsetY
     }
-    console.log(pos)
     if (THOUCH_EVS.includes(ev.type)) {
         ev.preventDefault()
         ev = ev.changedTouches[0]
@@ -133,7 +132,6 @@ function onMove(ev) {
     if (!gIsClickOnText || !gStartPos) return
     const pos = getEvPos(ev)
     // console.log(pos)
-    console.log(gStartPos)
     const dY = pos.x - gStartPos.x
     const dX = pos.y - gStartPos.y
     moveLine(dX, dY)
@@ -152,6 +150,21 @@ function onDeleteLine() {
 function onChangeStrokeColor(color){
     changeStrokeColor(color)
     gCtx.strokeStyle = color
+    renderMemes(gCurrImage)
+}
+function onChangeFillColor(color){
+    changeFillColor(color)
+    gCtx.fillColor = color
+    renderMemes(gCurrImage)
+}
+
+function onChangeTextSize(size) {
+    const meme = getMeme()
+    const memeSize = meme.lines[gMeme.selectedLineIdx].fontSize
+
+    if(size === 'increase') changeTextSize(10)
+    else if(memeSize > 10) changeTextSize(-10)
+    console.log(meme.lines[gMeme.selectedLineIdx].fontSize)
     renderMemes(gCurrImage)
 }
 

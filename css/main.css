@@ -34,17 +34,12 @@ a {
 
 @font-face {
     font-family: montserrat;
-    src: url("../fonts/Montserrat-Regular.ttf");
+    src: url("/fonts/Montserrat-Regular.ttf");
 }
 
 @font-face {
     font-family: montserrat-thin;
-    src: url("../fonts/Montserrat-Thin.ttf");
-}
-
-@font-face {
-    font-family: fa;
-    src: url("../fonts/font-awesome/fa-solid-900.ttf");
+    src: url("/fonts/Montserrat-Thin.ttf");
 }
 
 
@@ -189,18 +184,8 @@ a {
     padding: 10px;
     border: 1px solid black;
 }
-.align-left-btn::before{
-    font-family: fa;
-    content: "\f036";
-}
-.align-center-btn::before{
-    font-family: fa;
-    content: "\f037";
-}
-.align-right-btn::before{
-    font-family: fa;
-    content: "\f038";
-}
+
+
 
 /* footer */
 footer {
@@ -210,40 +195,17 @@ footer {
     background-color: var(--clr2);
 }
 
-
-
-
 /* logo */
 .logo {
     padding: 0 20px;
     color: var(--clr0);
 }
 
-
-
-
-/* font awesome */
-.next-line-btn::before {
-    font-family: fa;
-    content:"\f362" ;
+/* icons */
+.icon{
+    height: 20px;
+    width: 20px;
 }
-.delete-btn::before{
-    font-family: fa;
-    content: "\f1f8";
-}
-.new-line-btn::before{
-    font-family: fa;
-    content: "\2b";
-}
-.back-btn::before{
-    font-family: fa;
-    content: "\f015";
-}
-.increase-text::before, .decrease-text::before{
-    font-family: fa;
-    content: "\41";
-}
-
 
 /* helpers */
 

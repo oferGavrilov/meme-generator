@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meme Generator</title>
     <link rel="stylesheet" href="css/main.css">
-    
+
 
 </head>
 
@@ -45,23 +45,36 @@
                 <div class="edit-tools">
 
                     <input class="text-area" type="text" oninput="onAddText(this.value)" placeholder="Text line.." />
-                    <button class="new-line-btn btn" title="New line" onclick="onSetNewLine()"></button>
-                    <button class="delete-btn btn" title="Delete line" onclick="onDeleteLine()"></button>
-                    <button class="next-line-btn btn" title="Switch line" onclick="onSwitchLine()"></button>
+                    <button class="new-line-btn btn" title="New line" onclick="onSetNewLine()"><img class="icon"
+                            src="icons/add.png"></button>
+                    <button class="delete-btn btn" title="Delete line" onclick="onDeleteLine()"><img class="icon"
+                            src="icons/trash.png"></button>
+                    <button class="next-line-btn btn" title="Switch line" onclick="onSwitchLine()"><img class="icon"
+                            src="icons/next-line.png"></button>
                     <div class="grid-tools-container">
-                        <button class="increase-text btn" title="increase text" onclick="onIncreaseText">+</button>
-                        <button class="decrease-text btn" title="Decrease text" onclick="onDecreaseText">-</button>
-                        <button class="align-left-btn btn" title="Right" value="start" onclick="onChangeAlignment(this.value)"></button>
-                        <button class="align-center-btn btn" title="Center" value="center" onclick="onChangeAlignment(this.value)"></button>
-                        <button class="align-right-btn btn" title="Left" value="end" onclick="onChangeAlignment(this.value)"></button>
-                        <input type="color" title="Stroke-color" class="color-picker" onchange="onChangeStrokeColor(this.value)"></input>
-                        <input type="color" value="#ffffff" title="fill-color" class="color-picker" onchange="onChangeFillColor(this.value)"></input>
+                        <button class="increase-text btn" title="increase text" value="increase" onclick="onChangeTextSize(this.value)">
+                            <img class="icon" src="icons/increase.png"></button>
+                        <button class="decrease-text btn" title="Decrease text" value="decrease" onclick="onChangeTextSize(this.value)">
+                            <img class="icon" src="icons/decrease.png" alt=""></button>
+                        <button class="align-left-btn btn" title="Right" value="start"
+                            onclick="onChangeAlignment(this.value)"><img class="icon"
+                                src="icons/align-to-left.png"></button>
+                        <button class="align-center-btn btn" title="Center" value="center"
+                            onclick="onChangeAlignment(this.value)"><img class="icon"
+                                src="icons/center-text-alignment.png"></button>
+                        <button class="align-right-btn btn" title="Left" value="end"
+                            onclick="onChangeAlignment(this.value)"><img class="icon"
+                                src="icons/align-to-right.png"></button>
+                        <input type="color" title="Stroke-color" class="color-picker"
+                            onchange="onChangeStrokeColor(this.value)"></input>
+                        <input type="color" value="#ffffff" title="fill-color" class="color-picker"
+                            onchange="onChangeFillColor(this.value)"></input>
                     </div>
 
                 </div>
                 <button class="download-btn btn" onclick="onDownload()" title="Download meme">Download</button>
                 <button class="share-btn btn" onclick="onShare()" title="Share meme">Share</button>
-                <button class="back-btn btn" onclick="closeEditor()" title="Back to gallery"></button>
+                <button class="back-btn btn" onclick="closeEditor()" title="Back to gallery"><img class="icon" src="icons/home.png" alt="home"></button>
 
             </div>
         </section>

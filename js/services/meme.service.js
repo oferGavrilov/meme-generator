@@ -148,6 +148,13 @@ function deleteLine() {
 function changeStrokeColor(color) {
     gMeme.lines[gMeme.selectedLineIdx].strokeColor = color
 }
+function changeFillColor(color) {
+    gMeme.lines[gMeme.selectedLineIdx].fillColor = color
+}
+
+function changeTextSize(size) {
+    gMeme.lines[gMeme.selectedLineIdx].fontSize += size
+}
 
 function switchLine() {
     console.log(gMeme.lines)
