@@ -46,7 +46,9 @@ function setPositions() {
         }
     }
     else{
-      setNewLine()
+    //   setNewLine()
+      console.log('enter')
+      createLines()
     }
 }
 

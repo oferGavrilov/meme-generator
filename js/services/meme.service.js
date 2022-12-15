@@ -209,3 +209,20 @@ function changeAlignment(alignment) {
             break
     }
 }
+
+function createLines() {
+    for(let i = 0; i < 3; i++) {
+        gMeme.lines.push({
+            pos:{x:0,y:0},
+            text:'',
+            fillColor:'white',
+            strokeColor:'black',
+            textAlign: 'center',
+            fontSize:50,
+            fontFamily: 'arial',
+            isSelected:false
+        })
+    }
+}
+
+
