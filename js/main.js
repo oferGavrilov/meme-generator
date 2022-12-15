@@ -40,6 +40,7 @@ function openEditor(imageUrl, imgId) {
     document.querySelector('.grid-container').classList.add('hidden')
     document.querySelector('.meme-editor').classList.remove('hidden')
 
+    setPositions()
     gCurrImage = imageUrl
     // console.log(imageUrl)
     onEditorInit()
@@ -49,10 +50,12 @@ function openEditor(imageUrl, imgId) {
 }
 
 function closeEditor() {
-
     document.querySelector('.search-area').classList.remove('hidden')
     document.querySelector('.grid-container').classList.remove('hidden')
     document.querySelector('.meme-editor').classList.add('hidden')
+    document.querySelector('.text-area').value = ""
+    gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
+    clearCanvas()
 }
 
 function drawImg(image) {

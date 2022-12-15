@@ -147,7 +147,7 @@ body.menu-open .main-screen {
     padding: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-evenly;
     /* height: 100vh; */
 }
 .canvas-container {
@@ -164,7 +164,7 @@ body.menu-open .main-screen {
     background-color: var(--clr1);
     text-align: center;
     height: 100vh;
-    min-width: 350px;
+    min-width: 250px;
 }
 
 .edit-tools .text-area {
@@ -244,6 +244,7 @@ footer {
 .logo {
     padding: 0 20px;
     color: var(--clr0);
+    margin: auto 0;
 }
 
 /* icons */
@@ -351,6 +352,15 @@ footer {
         color: var(--clr0);
     }
 
+    .grid-container{
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .grid-container .image{
+        width: 200px;
+        height: 200px;
+    }
+
     .meme-editor {
         /* background-color: lightblue; */
         padding: 20px;
@@ -368,7 +378,7 @@ footer {
     .edit-container {
         position: relative;
         border-radius: 1em;
-        margin: 0;
+        margin: 0 20px;
         background-color: var(--clr1);
         text-align: center;
         height: 80vh;
@@ -387,6 +397,10 @@ footer {
     }
     .hidden {
         display: none;
+    }
+    
+    footer{
+        position: static;
     }
 }
 

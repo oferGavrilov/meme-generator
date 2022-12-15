@@ -47,6 +47,10 @@ let gMeme = {
     ]
 }
 
+function clearCanvas() {
+    gMeme.lines.forEach(line=> line.text = '')
+}
+
 function setSelectedImgID(id) {
     gMeme.selectedImgId = id
 }
@@ -62,9 +66,6 @@ function addText(text) {
     gMeme.lines[gMeme.selectedLineIdx].text = text
 }
 
-// function clearLines() {
-//     gMeme.lines.splice(1,gMeme.lines.length-1)
-// }
 
 
 function getMeme() {
@@ -72,7 +73,7 @@ function getMeme() {
 }
 
 function markLine(line) {
-    if(!line) return 
+    if (!line) return
     const lineWidth = gCtx.measureText(line.text).width + line.fontSize
     const lineHeight = line.fontSize
 
@@ -82,10 +83,7 @@ function markLine(line) {
 
 function setNewLine(text = 'new line') {
     document.querySelector('.text-area').value = ""
-    // resetSelectedLines()
-    // const pos = gMeme.lines[gMeme.selectedLineIdx].pos
     gMeme.selectedLineIdx += 1
-    const pos = setPos(gMeme.selectedLineIdx)
     const line = {
         text,
         fontSize: 50,
@@ -93,8 +91,8 @@ function setNewLine(text = 'new line') {
         fillColor: 'white',
         strokeColor: 'black',
         pos: {
-            x: pos.x,
-            y: pos.y,
+            x: gElCanvas.width / 2,
+            y: gElCanvas.height / 2,
         },
         fontFamily: 'arial',
     }
@@ -124,16 +122,23 @@ function moveLine(dx, dy) {
 
 
 function setSelectedLine(idx) {
+    resetSelectedLines()
+    gMeme.lines[idx].isSelected = true
+    gMeme.selectedLineIdx = idx
+
+}
+
+function resetSelectedLines() {//opt
     // resetSelectedLines()
     gMeme.lines.forEach((_, idx) => gMeme.lines[idx].isSelected = false)
     gMeme.selectedLineIdx = -1
 
-    gMeme.lines[idx].isSelected = true
-    gMeme.selectedLineIdx = idx
+    // gMeme.lines[idx].isSelected = true
+    // gMeme.selectedLineIdx = idx
 }
 
 function resetMarkLine() {
-    gMeme.lines.forEach((_, idx)=> {
+    gMeme.lines.forEach((_, idx) => {
         gMeme.lines[idx].isSelected = false
     })
     gMeme.selectedLineIdx = -1
@@ -171,6 +176,8 @@ function changeTextSize(size) {
 
 
 function switchLine() {
+    document.querySelector('.text-area').value = ""
+
     console.log(gMeme.lines)
     if (gMeme.selectedLineIdx >= 0) {
         if (gMeme.selectedLineIdx >= gMeme.lines.length - 1) {
@@ -199,6 +206,6 @@ function changeAlignment(alignment) {
             break
         case 'center':
             line.pos.x = gElCanvas.width / 2
-            break    
+            break
     }
 }
