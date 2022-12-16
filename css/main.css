@@ -180,6 +180,18 @@ body.menu-open .main-screen {
     font-size: 1.2rem;
 }
 
+/* saved-memes-container */
+
+.saved-memes{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 1fr 1fr;
+    place-items: center;
+    height: 80vh;
+    gap: 10px;
+    /* background-color: lightblue; */
+}
+
 /* grid-tools-container */
 .grid-tools-container {
     display: grid;
@@ -202,6 +214,16 @@ body.menu-open .main-screen {
     border: .6px solid black;
 }
 
+.grid-tools-container .font-select{
+    grid-column: 1/4;
+    width: 80%;
+    font-size: 1.2rem;
+    text-align: center;
+    border-radius: 15px;
+    cursor: pointer;
+    outline: none
+}
+
 .btn {
     cursor: pointer;
     border: none;
@@ -214,22 +236,34 @@ body.menu-open .main-screen {
     right: 10px;
 }
 
+.output-btns {
+    display: flex;
+    justify-content: space-evenly;
+    /* position: relative; */
+    bottom: 10px;
+}
 .download-btn {
-    position: absolute;
+    /* position: absolute;
     right: 10px;
     bottom: 10px;
-    padding: 10px;
+    padding: 10px; */
     border: 1px solid black;
 }
 
 .share-btn {
-    position: absolute;
+    /* position: absolute;
     left: 10px;
     bottom: 10px;
-    padding: 10px;
+    padding: 10px; */
     border: 1px solid black;
 }
 
+.save-btn{
+    /* position: absolute;
+    bottom: 10px;
+    padding: 10px; */
+    border: 1px solid black;
+}
 
 
 /* footer */
@@ -354,6 +388,7 @@ footer {
 
     .grid-container{
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        min-height:700px;
     }
 
     .grid-container .image{
@@ -362,11 +397,9 @@ footer {
     }
 
     .meme-editor {
-        /* background-color: lightblue; */
         padding: 20px;
         display: flex;
         flex-direction: row;
-        /* justify-content: space-between; */
         height: 100vh;
     }
 

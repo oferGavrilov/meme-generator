@@ -19,8 +19,8 @@
         <h2 class="logo">Logo</h2>
         <nav class="main-nav">
             <ul class="nav-bar flex clean-list">
-                <li><a href="#">Gallery</a></li>
-                <li><a href="#">Memes</a></li>
+                <li><a href="#" onclick="onGalleryPage()">Gallery</a></li>
+                <li><a href="#" onclick="onSavedMemesPage()">Memes</a></li>
                 <li><a href="#">About</a></li>
             </ul>
         </nav>
@@ -30,7 +30,16 @@
     <section class="search-area flex  full">
         <nav class="search-nav flex main-layout">
 
-            <input class="search" type="search" placeholder="SEARCH" />
+            <input class="search" type="search" list="searchKeywords" oninput="onFilterImages(this.value)"
+                placeholder="SEARCH" />
+            <datalist id="searchKeywords">
+                <option value="funny"></option>
+                <option value="kids"></option>
+                <option value="men"></option>
+                <option value="animal"></option>
+                <option value="celebrity"></option>
+                <option value="cute"></option>
+            </datalist>
             <ul class="filter-tags flex clean-list full">
                 <li><a href="#">funny</a></li>
                 <li><a href="#">men</a></li>
@@ -59,6 +68,7 @@
                             src="icons/trash.png"></button>
                     <button class="next-line-btn btn" title="Switch line" onclick="onSwitchLine()"><img class="icon"
                             src="icons/next-line.png"></button>
+
                     <div class="grid-tools-container">
                         <button class="increase-text btn" title="increase text" value="increase"
                             onclick="onChangeTextSize(this.value)">
@@ -75,6 +85,11 @@
                         <button class="align-right-btn btn" title="Left" value="end"
                             onclick="onChangeAlignment(this.value)"><img class="icon"
                                 src="icons/align-to-right.png"></button>
+                        <select class="font-select" onchange="onChangeFontFamily(this.value)">
+                            <option value="impact">Impact</option>
+                            <option value="arial">Arial</option>
+                            <option value="roboto">Roboto</option>
+                        </select>
                         <input type="color" title="Stroke-color" class="color-picker"
                             oninput="onChangeStrokeColor(this.value)"></input>
                         <input type="color" value="#ffffff" title="fill-color" class="color-picker"
@@ -82,14 +97,24 @@
                     </div>
 
                 </div>
-                <button class="download-btn btn"><a href="#" onclick="onDownload(this)">Download</a></button>
-                <button class="share-btn btn" onclick="onShare()" title="Share meme">Share</button>
+                <div class="output-btns">
+                    <button class="share-btn btn" onclick="onShare()" title="Share meme">Share</button>
+                    <button class="save-btn btn" onclick="onSave()" title="Save meme">Save</button>
+                    <button class="download-btn btn"><a href="#" onclick="onDownload(this)">Download</a></button>
+                </div>
+
                 <button class="back-btn btn" onclick="closeEditor()" title="Back to gallery"><img class="icon"
                         src="icons/home.png" alt="home"></button>
 
             </div>
         </section>
 
+        <section class="saved-memes-container">
+            <h1>saved memes</h1>
+            <button onclick="closeEditor()"><img class="icon" src="icons/home.png" alt="home"></button>
+            <div class="saved-memes hidden full">
+            </div>
+        </section>
     </main>
 
     <footer class="hidden1 full">
@@ -102,6 +127,7 @@
         </ul>
     </footer>
 
+    <script src="js/services/storage.service.js"></script>
     <script src="js/services/meme.service.js"></script>
     <script src="js/services/utils.service.js"></script>
     <script src="js/services/gallery.service.js"></script>

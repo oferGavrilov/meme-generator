@@ -1,78 +1,68 @@
 'use strict'
 let gIsClickOnText = false
 let gStartPos
+
 const THOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 
-
+//this function activate when the user selected an image
 function onEditorInit() {
-    // setPositions()
-    resizeCanvas()
-    addListeners()
+    setPositions() // set positions on the canvas
+    resizeCanvas() // resize the canvas by the screen size
+    addListeners() // add events listeners - touch and mouse
 }
 
-
+// this function resize the canvas by the properties of canvas container
 function resizeCanvas() {
     const elContainer = document.querySelector('.canvas-container')
+
     gElCanvas.width = elContainer.offsetWidth
     let heightRatio = 1
     gElCanvas.height = gElCanvas.width * heightRatio
-    // gElCanvas.width = window.innerWidth -60
-    // gElCanvas.height = elContainer.offsetHeight
-    // console.log("height:",gElCanvas.height, 'width:',gElCanvas.width)
-    setPositions()
-    renderMemes(gCurrImage)
+
+    setPositions() // after each resize , set positions on the canvas
+    renderMemes(gCurrImage) // after each resize , render image on the canvas
 }
 
+// this function activated when the user typing text
 function onAddText(text) {
-    // let text = document.querySelector('.text-area').value
-    addText(text)
-    renderMemes(gCurrImage)
+    addText(text) // executes a service function
+    renderMemes(gCurrImage) // render image after every change 
 }
 
+// set positions on the canvas by top then bottom then middle 
 function setPositions() {
     const meme = getMeme()
-    if(meme.lines.length > 1) {
+    if (meme.lines.length > 1) { //top
         meme.lines[0].pos = {
             x: gElCanvas.width / 2,
             y: 50
         }
-        meme.lines[1].pos = {
+        meme.lines[1].pos = { //bottom
             x: gElCanvas.width / 2,
             y: gElCanvas.height - 50
         }
-        meme.lines[2].pos = {
+        meme.lines[2].pos = { //middle
             x: gElCanvas.width / 2,
-            y: gElCanvas.height /2
+            y: gElCanvas.height / 2
         }
     }
-    else{
-    //   setNewLine()
-      console.log('enter')
-      createLines()
+    else {   /// if the user delete all the lines this func will create new positions lines
+        createLines()
     }
 }
 
-
-//delete func
-function setPos(idx) {
-    if (idx === 0) return { x: gElCanvas.width / 2, y: 50 }
-    else if (idx === 1) return { x: gElCanvas.width / 2, y: gElCanvas.height - 50 }
-    else if (idx >= 2) return { x: gElCanvas.width / 2, y: gElCanvas.height / 2 }
-}
-
-
+// this function draw image , text lines and border lines on the canvas
 function renderMemes(image) {
     gCtx.drawImage(image, 0, 0, gElCanvas.width, gElCanvas.height)
 
-
     const memes = getMeme()
     const lines = memes.lines
-    console.log(lines)
-    lines.forEach(line => makeLineText(line))
-    markLine(gMeme.lines[gMeme.selectedLineIdx])
+
+    lines.forEach(line => makeLineText(line)) // render text
+    markLine(gMeme.lines[gMeme.selectedLineIdx]) // render mark
 }
 
-
+// render text lines on the canvas
 function makeLineText(line) {
     gCtx.lineWidth = 2
     gCtx.strokeStyle = line.strokeColor
@@ -80,20 +70,21 @@ function makeLineText(line) {
     gCtx.font = `${line.fontSize}px ${line.fontFamily}`
     gCtx.textAlign = line.textAlign
     gCtx.textBaseline = 'middle'
+
     gCtx.fillText(line.text, line.pos.x, line.pos.y)
     gCtx.strokeText(line.text, line.pos.x, line.pos.y)
 }
 
+// move to the next line 
 function onSetNewLine() {
-    document.querySelector('.text-area').value = ""
-    const memes = gMeme
-    memes.selectedLineIdx += 1 
+    document.querySelector('.text-area').value = "" // clean input
 
-    if(memes.selectedLineIdx >= 3) setNewLine()
-    console.log(memes.lines)
+    const memes = gMeme
+    memes.selectedLineIdx += 1
+
+    if (memes.selectedLineIdx >= 3) setNewLine() // if there no lines in the model create new one in the middle
     renderMemes(gCurrImage)
 }
-
 
 //////////     listeners    ////////////
 function addListeners() {
@@ -106,23 +97,26 @@ function addListeners() {
     })
 }
 
+//add listeners for mouse events
 function addMouseListeners() {
     gElCanvas.addEventListener('mousemove', onMove)
     gElCanvas.addEventListener('mousedown', onDown)
     gElCanvas.addEventListener('mouseup', onUp)
 }
+// add listeners for touch events
 function addTouchListeners() {
     gElCanvas.addEventListener('touchmove', onMove)
     gElCanvas.addEventListener('touchstart', onDown)
     gElCanvas.addEventListener('touchend', onUp)
 }
 
+// this function returns positions of mouse events and touch events
 function getEvPos(ev) {
     let pos = {
         x: ev.offsetX,
         y: ev.offsetY
     }
-    if (THOUCH_EVS.includes(ev.type)) {
+    if (THOUCH_EVS.includes(ev.type)) { /// recognize touch events
         ev.preventDefault()
         ev = ev.changedTouches[0]
         pos = {
@@ -134,34 +128,37 @@ function getEvPos(ev) {
 }
 
 function onUp() {
-    gIsClickOnText = false
     document.querySelector('.canvas-container').style.cursor = 'grab'
+    gIsClickOnText = false
 }
 
 function onDown(ev) {
-    const pos = getEvPos(ev)
-    const isClicked = isLineClicked(pos)
+    document.querySelector('.canvas-container').style.cursor = 'grabbing'
+
+    const pos = getEvPos(ev) // get position
+    const isClicked = isLineClicked(pos) // recognize position on line or not 
     if (!isClicked) return
 
-    document.querySelector('.canvas-container').style.cursor = 'grabbing'
-    console.log('clicked')
-    setSelectedLine(gMeme.lines.indexOf(isClicked))
-    gStartPos = pos
-    console.log('pos', pos)
-    gIsClickOnText = true
-    const diffX = pos.x - gStartPos.x
+    setSelectedLine(gMeme.lines.indexOf(isClicked)) // set selected line on the model
+    document.querySelector('.text-area').value = gMeme.lines[gMeme.selectedLineIdx].text  // put selected line on the input area
+    
+    gStartPos = pos // update start position 
+    gIsClickOnText = true // update global variable to be true
+
+    const diffX = pos.x - gStartPos.x // calculate the distance between 
     const diffY = pos.y - gStartPos.y
-    moveLine(diffX, diffY)
-    markLine(gMeme.lines[gMeme.selectedLineIdx])
-    renderMemes(gCurrImage)
+    
+    moveLine(diffX, diffY) // set positions in the model
+    markLine(gMeme.lines[gMeme.selectedLineIdx]) // set selected line in the model
+    renderMemes(gCurrImage) // render changes in the canvas view
 }
 
 function onMove(ev) {
     if (!gIsClickOnText || !gStartPos) return
     const pos = getEvPos(ev)
     // console.log(pos)
-    const dY = pos.x - gStartPos.x
-    const dX = pos.y - gStartPos.y
+    const dX = pos.x - gStartPos.x
+    const dY = pos.y - gStartPos.y
     moveLine(dX, dY)
     markLine(gMeme.lines[gMeme.selectedLineIdx])
     renderMemes(gCurrImage)
@@ -170,45 +167,64 @@ function onMove(ev) {
 
 /////// tools ////////////
 
+// delete line function
 function onDeleteLine() {
     deleteLine()
     renderMemes(gCurrImage)
 }
 
-function onChangeStrokeColor(color){
+// change stroke color function
+function onChangeStrokeColor(color) {
     changeStrokeColor(color)
     gCtx.strokeStyle = color
     renderMemes(gCurrImage)
 }
-function onChangeFillColor(color){
+
+// change fill color function
+function onChangeFillColor(color) {
     changeFillColor(color)
     gCtx.fillColor = color
     renderMemes(gCurrImage)
 }
-
+// increase or decrease text size function
 function onChangeTextSize(size) {
     const meme = getMeme()
     const memeSize = meme.lines[gMeme.selectedLineIdx].fontSize
 
-    if(size === 'increase') changeTextSize(10)
-    else if(memeSize > 10) changeTextSize(-10)
+    if (size === 'increase') changeTextSize(10)
+    else if (memeSize > 10) changeTextSize(-10)
     renderMemes(gCurrImage)
 }
 
+// switch between lines function
 function onSwitchLine() {
     switchLine()
     renderMemes(gCurrImage)
 }
 
-function onChangeAlignment(alignment){
+// change alignment function
+function onChangeAlignment(alignment) {
     changeAlignment(alignment)
     renderMemes(gCurrImage)
 }
 
-
-
-function onDownload(link) {
-    resetSelectedLines()
+// change font family function
+function onChangeFontFamily(fontFamily){
+    changeFontFamily(fontFamily)
     renderMemes(gCurrImage)
-    downloadMeme(link)
+}
+
+// download meme
+function onDownload(link) {
+    resetSelectedLines() // clear selected lines on the model
+    renderMemes(gCurrImage) // render image and clear selected lines on the canvas
+    downloadMeme(link) // active function on the main javascript file
+}
+
+function onSave() {
+    resetSelectedLines() // reset selected lines on the model
+    renderMemes(gCurrImage)
+
+    const savedMeme = gElCanvas.toDataURL('image/jpeg')
+    saveMeme(savedMeme)
 }

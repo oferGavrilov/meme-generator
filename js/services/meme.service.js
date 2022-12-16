@@ -1,5 +1,6 @@
 'use strict'
 
+const MEME_STORAGE_KEY = 'meme_db'
 
 let gMeme = {
     selectedImgId: 1,
@@ -15,7 +16,7 @@ let gMeme = {
             strokeColor: 'black',
             textAlign: 'center',
             fontSize: 50,
-            fontFamily: 'arial',
+            fontFamily: 'impact',
             isSelected: false
         },
         {// bottom line
@@ -28,7 +29,7 @@ let gMeme = {
             strokeColor: 'black',
             textAlign: 'center',
             fontSize: 50,
-            fontFamily: 'arial',
+            fontFamily: 'impact',
             isSelected: false
         },
         {// middle line
@@ -41,7 +42,7 @@ let gMeme = {
             strokeColor: 'black',
             textAlign: 'center',
             fontSize: 50,
-            fontFamily: 'arial',
+            fontFamily: 'impact',
             isSelected: false
         },
     ]
@@ -58,11 +59,12 @@ function setSelectedImgID(id) {
 // gCtx.lineWidth = 2
 //     gCtx.strokeStyle = 'black'
 //     gCtx.fillStyle = 'white'
-//     gCtx.font = '50px arial'
+//     gCtx.font = '50px impact'
 //     gCtx.textAlign = 'center'
 //     gCtx.textBaseline = 'middle'
 
 function addText(text) {
+    console.log(gMeme.lines)
     gMeme.lines[gMeme.selectedLineIdx].text = text
 }
 
@@ -94,7 +96,7 @@ function setNewLine(text = 'new line') {
             x: gElCanvas.width / 2,
             y: gElCanvas.height / 2,
         },
-        fontFamily: 'arial',
+        fontFamily: 'impact',
     }
     gMeme.lines.push(line)
     gMeme.selectedLineIdx = gMeme.lines.length - 1
@@ -114,39 +116,36 @@ function isLineClicked(pos) {
     return clickedLine
 }
 
+// set new position in the model 
 function moveLine(dx, dy) {
     console.log(dx, dy)
-    gMeme.lines[gMeme.selectedLineIdx].pos.x += dy
-    gMeme.lines[gMeme.selectedLineIdx].pos.y += dx
+    gMeme.lines[gMeme.selectedLineIdx].pos.x += dx
+    gMeme.lines[gMeme.selectedLineIdx].pos.y += dy
 }
 
-
+// set selected line on the model
 function setSelectedLine(idx) {
-    resetSelectedLines()
+    // resetSelectedLines()
     gMeme.lines[idx].isSelected = true
     gMeme.selectedLineIdx = idx
-
 }
 
-function resetSelectedLines() {//opt
-    // resetSelectedLines()
+// update on the model - all lines are not selected
+function resetSelectedLines() {
     gMeme.lines.forEach((_, idx) => gMeme.lines[idx].isSelected = false)
     gMeme.selectedLineIdx = -1
-
-    // gMeme.lines[idx].isSelected = true
-    // gMeme.selectedLineIdx = idx
 }
 
-function resetMarkLine() {
-    gMeme.lines.forEach((_, idx) => {
-        gMeme.lines[idx].isSelected = false
-    })
-    gMeme.selectedLineIdx = -1
-}
+// function resetMarkLine() {
+//     gMeme.lines.forEach((_, idx) => {
+//         gMeme.lines[idx].isSelected = false
+//     })
+//     gMeme.selectedLineIdx = -1
+// }
 
 
 
-//edit
+//edit // delete line on the model
 function deleteLine() {
     const lineIdx = gMeme.selectedLineIdx
     console.log(lineIdx)
@@ -210,6 +209,10 @@ function changeAlignment(alignment) {
     }
 }
 
+function changeFontFamily(fontFamily) {
+    gMeme.lines[gMeme.selectedLineIdx].fontFamily = fontFamily
+}
+
 function createLines() {
     for(let i = 0; i < 3; i++) {
         gMeme.lines.push({
@@ -219,10 +222,29 @@ function createLines() {
             strokeColor:'black',
             textAlign: 'center',
             fontSize:50,
-            fontFamily: 'arial',
+            fontFamily: 'impact',
             isSelected:false
         })
     }
 }
 
+//edit
+function saveMeme(meme) {
+    let lines =  gMeme.lines
+    console.log('meme: ', meme)
+    let savedMemes = loadFromStorage(MEME_STORAGE_KEY)
+    // console.log('savedMemes' , savedMemes)
 
+    if(!savedMemes || savedMemes === null){
+        savedMemes = [{meme:meme, lines:lines}]
+        console.log('savedMemes' , savedMemes)
+        saveToStorage(MEME_STORAGE_KEY,savedMemes)
+        return
+    }
+    savedMemes.push({meme:meme, lines:lines})
+    saveToStorage(MEME_STORAGE_KEY, savedMemes)
+}
+
+function getFromLocalStorage(){
+    return loadFromStorage(MEME_STORAGE_KEY)
+}
