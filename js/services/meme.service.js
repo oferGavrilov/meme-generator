@@ -15,7 +15,7 @@ let gMeme = {
             fillColor: 'white',
             strokeColor: 'black',
             textAlign: 'center',
-            fontSize: 50,
+            fontSize: 30,
             fontFamily: 'impact',
             isSelected: false
         },
@@ -28,7 +28,7 @@ let gMeme = {
             fillColor: 'white',
             strokeColor: 'black',
             textAlign: 'center',
-            fontSize: 50,
+            fontSize: 30,
             fontFamily: 'impact',
             isSelected: false
         },
@@ -41,7 +41,7 @@ let gMeme = {
             fillColor: 'white',
             strokeColor: 'black',
             textAlign: 'center',
-            fontSize: 50,
+            fontSize: 30,
             fontFamily: 'impact',
             isSelected: false
         },
@@ -56,19 +56,15 @@ function setSelectedImgID(id) {
     gMeme.selectedImgId = id
 }
 
-// gCtx.lineWidth = 2
-//     gCtx.strokeStyle = 'black'
-//     gCtx.fillStyle = 'white'
-//     gCtx.font = '50px impact'
-//     gCtx.textAlign = 'center'
-//     gCtx.textBaseline = 'middle'
 
 function addText(text) {
     console.log(gMeme.lines)
     gMeme.lines[gMeme.selectedLineIdx].text = text
 }
 
-
+function addSticker(sticker) {
+    gMeme.lines[gMeme.selectedLineIdx].text += sticker
+}
 
 function getMeme() {
     return gMeme
@@ -88,7 +84,7 @@ function setNewLine(text = 'new line') {
     gMeme.selectedLineIdx += 1
     const line = {
         text,
-        fontSize: 50,
+        fontSize: 30,
         textAlign: 'center',
         fillColor: 'white',
         strokeColor: 'black',
@@ -135,15 +131,6 @@ function resetSelectedLines() {
     gMeme.lines.forEach((_, idx) => gMeme.lines[idx].isSelected = false)
     gMeme.selectedLineIdx = -1
 }
-
-// function resetMarkLine() {
-//     gMeme.lines.forEach((_, idx) => {
-//         gMeme.lines[idx].isSelected = false
-//     })
-//     gMeme.selectedLineIdx = -1
-// }
-
-
 
 //edit // delete line on the model
 function deleteLine() {
@@ -221,11 +208,12 @@ function createLines() {
             fillColor:'white',
             strokeColor:'black',
             textAlign: 'center',
-            fontSize:50,
+            fontSize:30,
             fontFamily: 'impact',
             isSelected:false
         })
     }
+    setPositions()
 }
 
 //edit

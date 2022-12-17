@@ -17,9 +17,8 @@ function renderGallery() {
     const images = getImages()
     console.log(images)
     const strHtml = images.map(image => {
-        return `<img src="${image.url}"class="image" onclick="openEditor(this , '${image.id}')"/>`
+        return `<img src="${image.url}" id="${image.url}" class="image" onclick="openEditor(this , '${image.id}')"/>`
     })
-
 
     const elGrid = document.querySelector('.grid-container')
     elGrid.innerHTML = strHtml.join('')
@@ -34,6 +33,7 @@ function onToggleMenu() {
 function openEditor(imageUrl, imgId) {
     document.querySelector('.search-area').classList.add('hidden')
     document.querySelector('.grid-container').classList.add('hidden')
+    document.querySelector('.saved-memes-container').classList.add('hidden')
     document.querySelector('.meme-editor').classList.remove('hidden')
     gCurrImage = imageUrl // update the current image to the image the user selected
 
@@ -41,7 +41,6 @@ function openEditor(imageUrl, imgId) {
     onEditorInit() // start the meme Controller  javascript file 
 
 
-    console.log(gCurrImage)
     // drawImg(gCurrImage) // draw image on the canvas
     // renderMemes(gCurrImage)
 }
@@ -55,26 +54,22 @@ function closeEditor() {
     clearCanvas() // clear the text lines in the model meme service
 }
 
-// function drawImg(image) {
-//     gCtx.drawImage(image, 0, 0, gElCanvas.width, gElCanvas.height)
-// }
-
-
-
-
-
-
-
 
 function renderSavedMemes() {
     const savedMemes = getFromLocalStorage()
     console.log(savedMemes)
-    let strHtmls = savedMemes.map(meme  => {
-        return`
+    if (!savedMemes) {
+        let strHtmls = `<h1> No saved memes yet ... </h1>`
+        document.querySelector('.saved-memes').innerHTML = strHtmls
+    }
+    else {
+        let strHtmls = savedMemes.map(meme => {
+            return `
             <img class="image" src="${meme.meme}" onclick="openEditor(this)" />
             `
-    })
-    document.querySelector('.saved-memes').innerHTML = strHtmls.join('')
+        })
+        document.querySelector('.saved-memes').innerHTML = strHtmls.join('')
+    }
 }
 
 
@@ -92,17 +87,34 @@ function downloadMeme(link) {
     link.download = 'my-meme.jpg'
 }
 
+function onRandomMeme() {
+    const images = getImages()
+    let randomIdx = getRandomIntInclusive(1, images.length)
+    console.log(randomIdx)
+    const imageUrl = document.getElementById(`img/${randomIdx}.jpg`)
+    openEditor(imageUrl, randomIdx)
+    makeRandomMeme()
+}
+
+
+
+
+
+
 
 /// pages ///
 function onSavedMemesPage() {
     document.querySelector('.search-area').classList.add('hidden')
     document.querySelector('.grid-container').classList.add('hidden')
-    document.querySelector('.saved-memes').classList.remove('hidden')
+    document.querySelector('.saved-memes-container').classList.remove('hidden')
+    document.querySelector('.meme-editor').classList.add('hidden')
 
     renderSavedMemes()
 }
 function onGalleryPage() {
+    document.querySelector('.meme-editor').classList.add('hidden')
     document.querySelector('.search-area').classList.remove('hidden')
     document.querySelector('.grid-container').classList.remove('hidden')
-    document.querySelector('.saved-memes').classList.add('hidden')
+    document.querySelector('.saved-memes-container').classList.add('hidden')
+    clearCanvas()
 }

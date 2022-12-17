@@ -9,6 +9,7 @@ function onEditorInit() {
     setPositions() // set positions on the canvas
     resizeCanvas() // resize the canvas by the screen size
     addListeners() // add events listeners - touch and mouse
+    renderStickers()
 }
 
 // this function resize the canvas by the properties of canvas container
@@ -46,13 +47,14 @@ function setPositions() {
             y: gElCanvas.height / 2
         }
     }
-    else {   /// if the user delete all the lines this func will create new positions lines
-        createLines()
-    }
+    // else if(meme.lines.length <= 0) {   /// if the user delete all the lines this func will create new positions lines
+    //     createLines()
+    // }
 }
 
 // this function draw image , text lines and border lines on the canvas
 function renderMemes(image) {
+    console.log(gMeme.lines.length)
     gCtx.drawImage(image, 0, 0, gElCanvas.width, gElCanvas.height)
 
     const memes = getMeme()
@@ -83,6 +85,12 @@ function onSetNewLine() {
     memes.selectedLineIdx += 1
 
     if (memes.selectedLineIdx >= 3) setNewLine() // if there no lines in the model create new one in the middle
+
+    else if (memes.lines.length <= 0) { // if the user deleted all lines, create new lines and reset selected line
+        resetSelectedLines()
+        memes.selectedLineIdx = 0
+        createLines()
+    }
     renderMemes(gCurrImage)
 }
 
@@ -141,13 +149,13 @@ function onDown(ev) {
 
     setSelectedLine(gMeme.lines.indexOf(isClicked)) // set selected line on the model
     document.querySelector('.text-area').value = gMeme.lines[gMeme.selectedLineIdx].text  // put selected line on the input area
-    
+
     gStartPos = pos // update start position 
     gIsClickOnText = true // update global variable to be true
 
     const diffX = pos.x - gStartPos.x // calculate the distance between 
     const diffY = pos.y - gStartPos.y
-    
+
     moveLine(diffX, diffY) // set positions in the model
     markLine(gMeme.lines[gMeme.selectedLineIdx]) // set selected line in the model
     renderMemes(gCurrImage) // render changes in the canvas view
@@ -209,7 +217,7 @@ function onChangeAlignment(alignment) {
 }
 
 // change font family function
-function onChangeFontFamily(fontFamily){
+function onChangeFontFamily(fontFamily) {
     changeFontFamily(fontFamily)
     renderMemes(gCurrImage)
 }
@@ -227,4 +235,39 @@ function onSave() {
 
     const savedMeme = gElCanvas.toDataURL('image/jpeg')
     saveMeme(savedMeme)
+}
+
+// random meme selection
+function makeRandomMeme() {
+    const meme = getMeme()
+    const text = getRandomText()
+    const size = getRandomIntInclusive(20, 35)
+
+    console.log(getRandomColor())
+    meme.lines[0].text = text.top
+    meme.lines[0].strokeColor = getRandomColor()
+    meme.lines[0].fillColor = getRandomColor()
+    meme.lines[0].fontSize = size
+
+    meme.lines[1].text = text.bottom
+    meme.lines[1].strokeColor = getRandomColor()
+    meme.lines[1].fillColor = getRandomColor()
+    meme.lines[1].fontSize = size
+
+    renderMemes(gCurrImage)
+}
+
+function renderStickers() {
+    const stickers = getStickers()
+    const strHtmls = stickers.map(sticker => {
+        return `<div class="sticker" onclick="onSetSticker('${sticker}')">${sticker}</div>`
+    })
+    document.querySelector('.sticker-container').innerHTML = strHtmls.join('')
+    console.log(stickers)
+}
+
+function onSetSticker(sticker) {
+    console.log(sticker)
+    addSticker(sticker)
+    renderMemes(gCurrImage)
 }

@@ -6,7 +6,6 @@
 }
 
 body {
-    /* background-color: lightblue; */
     margin: 0;
 }
 
@@ -90,6 +89,24 @@ body.menu-open .main-screen {
     font-size: 1.5rem;
     background-color: var(--clr2);
     border: none;
+}
+
+.flexible-btn {
+    background-color: var(--clr0);
+    border: 2px solid var(--clr0);
+    color: var(--clr2);
+    border-radius: 2em;
+    height: 40px;
+    font-size: 1em;
+    padding: 0 15px;
+    margin: auto 0;
+    cursor: pointer;
+
+    transition: background-color .4s;
+}
+.flexible-btn:hover{
+    background-color: var(--clr2);
+    color: var(--clr0);
 }
 
 /* search-area */
@@ -239,32 +256,24 @@ body.menu-open .main-screen {
 .output-btns {
     display: flex;
     justify-content: space-evenly;
-    /* position: relative; */
     bottom: 10px;
 }
-.download-btn {
-    /* position: absolute;
-    right: 10px;
-    bottom: 10px;
-    padding: 10px; */
+.output-btns > button {
     border: 1px solid black;
 }
 
-.share-btn {
-    /* position: absolute;
-    left: 10px;
-    bottom: 10px;
-    padding: 10px; */
+.sticker-container {
+    display: flex;
+    padding: 20px 0;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
     border: 1px solid black;
+    margin: 20px;
 }
-
-.save-btn{
-    /* position: absolute;
-    bottom: 10px;
-    padding: 10px; */
-    border: 1px solid black;
+.sticker-container > .sticker{
+    cursor: pointer;
 }
-
 
 /* footer */
 footer {
@@ -334,7 +343,7 @@ footer {
         text-align: center;
         padding: 13px 10px;
         border-bottom: 1px solid #ccc;
-        background-color: #fff;
+        background-color: var(--clr2);
 
         transition: background-color .6s;
     }
@@ -428,17 +437,20 @@ footer {
     .edit-tools>button {
         font-size: 1.2rem;
     }
+    footer{
+        position: static;
+    }
     .hidden {
         display: none;
     }
     
-    footer{
-        position: static;
-    }
 }
 
 /* desktop */
 @media (min-width: 960px) {
  
-    
+    .sticker-container{
+        font-size: 3rem;
+    }
+
 }

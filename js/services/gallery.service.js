@@ -2,6 +2,8 @@
 
 let gFilterBy
 
+let gStickers = ['😂','😭','💣','😈','👱‍♂️']
+
 let gImgs =[
     {
         id:1,
@@ -114,4 +116,8 @@ function getImages() {
         return filteredImages
     }
     return gImgs
+}
+
+function getStickers() {
+    return gStickers
 }

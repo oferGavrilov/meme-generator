@@ -24,3 +24,31 @@ function getRandomIntInclusive(min, max) {
     max = Math.floor(max)
     return Math.floor(Math.random() * (max - min + 1)) + min //The maximum is inclusive and the minimum is inclusive 
 }
+
+function getRandomText() {
+    const texts = [
+        {
+            top:`There's no words to explain`,
+            bottom:'THIS'
+        },
+        {
+            top:'That moment when you realize',
+            bottom:'HTML is not programming language'
+        },
+        {
+            top:'Senior Dev: how did you fix that bug?',
+            bottom:'Junior Dev: Commented the code'
+        },
+        {
+            top:`It's called respect`,
+            bottom:'Have some'
+        }
+
+    ]
+    return texts[getRandomIntInclusive(0, texts.length - 1)]
+}
+
+function getRandomColor() {
+    const colors= ['#8A51B0' , '#51B0A6' , '#89CD12', '#CD1312', '#BB12CD', '#12BACD', '#ffffff' , '#08191B', '#C2FE1F']
+    return colors[getRandomIntInclusive(0, colors.length -1)]
+}
