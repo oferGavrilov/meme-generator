@@ -10,6 +10,7 @@ function onEditorInit() {
     resizeCanvas() // resize the canvas by the screen size
     addListeners() // add events listeners - touch and mouse
     renderStickers()
+
 }
 
 // this function resize the canvas by the properties of canvas container
@@ -54,7 +55,7 @@ function setPositions() {
 
 // this function draw image , text lines and border lines on the canvas
 function renderMemes(image) {
-    console.log(gMeme.lines.length)
+    console.log(image)
     gCtx.drawImage(image, 0, 0, gElCanvas.width, gElCanvas.height)
 
     const memes = getMeme()

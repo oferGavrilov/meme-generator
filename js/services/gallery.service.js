@@ -2,7 +2,7 @@
 
 let gFilterBy
 
-let gKeywords = ['celebrity', 'animal' , 'kids' , 'funny' , 'men']
+let gKeywords = ['Celebrity', 'Animal' , 'Kids' , 'Funny' , 'Men']
 let gStickers = ['😂','😭','💣','😈','👱‍♂️']
 
 let gImgs =[
@@ -100,7 +100,7 @@ let gImgs =[
 
 // update the filter key 
 function filterImages(searchKey) {
-    gFilterBy = searchKey
+    gFilterBy = searchKey.toLowerCase()
 }
 
 // return images to the gallery, and return by  filter key if it exists
@@ -119,9 +119,37 @@ function getImages() {
     return gImgs
 }
 
+
+// function loadImgFromInput(ev) {
+//     const reader = new FileReader()
+//     reader.onload = (event) => {
+//         let img = new Image()
+//         img.src = event.target.result
+//         img.onload = () => onEditorInit(img)
+//         console.log(img)
+//     }
+//     reader.readAsDataURL(ev.target.files[0])
+// }
+
+
+//this function increase tags font size by clicking on them
+function sizeUpKeyword(elKeyword) {
+    let key = elKeyword.children[0]
+    let style = window.getComputedStyle(key,null).getPropertyValue('font-size')
+    let currentSize = parseFloat(style)
+    key.style.fontSize = (currentSize + 2 ) + 'px'
+}
+
+//this function clear filter by click on 'All' filter tag
+function clearFilter() {
+    gFilterBy = null
+}
+
+//returns stickers
 function getStickers() {
     return gStickers
 }
+// returns keywords
 function getKeywords() {
     return gKeywords
 }

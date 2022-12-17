@@ -3,10 +3,20 @@
     color: #040a2c;
     font-family: montserrat;
     overflow-x: hidden;
+    font-size: 18px;
 }
 
 body {
     margin: 0;
+}
+.rtl{
+    direction: rtl;
+}
+
+:root {
+    --clr0: #ffffff;
+    --clr1: #e3e3e3;
+    --clr2: #ff7f00;
 }
 
 h1,
@@ -24,12 +34,6 @@ img {
 
 a {
     text-decoration: none;
-}
-
-:root {
-    --clr0: #ffffff;
-    --clr1: #e3e3e3;
-    --clr2: #ff7f00;
 }
 
 @font-face {
@@ -143,9 +147,14 @@ body.menu-open .main-screen {
     border-radius: 2em;
     padding: 10px 0;
 }
+.filter-tags li{
+    color: var(--clr0);
+    padding: 0 20px;
+    cursor: pointer;
+}
 
 .filter-tags a {
-    font-size: 18px;
+    /* font-size: 18px; */
     padding: 0 20px;
     color: var(--clr0);
 }
@@ -167,8 +176,30 @@ body.menu-open .main-screen {
     justify-self: center;
     background-color: lightcoral;
     cursor: pointer;
+    border-radius: 16px;
 
     transition: filter .4s;
+}
+.uploadImg{
+    background-color: #ffffff;
+    display: flex;
+    opacity: 30%;
+    align-items: center;
+    justify-content: center;
+
+    transition: opacity .6s;
+}
+.uploadImg:hover{
+    opacity: 100%;
+}
+.uploadImg input{
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+.uploadImg img{
+    height: 50%;
+    width: 50%;   
 }
 
 .image:hover {
@@ -254,7 +285,6 @@ body.menu-open .main-screen {
 .btn {
     cursor: pointer;
     border: none;
-    font-size: 1.5em;
 }
 
 .back-btn {
@@ -269,6 +299,7 @@ body.menu-open .main-screen {
     bottom: 10px;
 }
 .output-btns > button {
+    font-size: 1.5em;
     border: 1px solid black;
 }
 
@@ -277,20 +308,39 @@ body.menu-open .main-screen {
     padding: 20px 0;
     justify-content: center;
     align-items: center;
-    font-size: 2rem;
     border: 1px solid black;
     margin: 20px;
 }
 .sticker-container > .sticker{
     cursor: pointer;
+    font-size: 2rem;
+
 }
 
 /* footer */
 footer {
-    display: flex;
     margin-bottom: 0;
     padding: 45px;
     background-color: var(--clr2);
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    gap: 10px;
+}
+footer .logo {
+    margin: auto;
+    width: 200px;
+}
+.social-links{
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+}
+.social-links > li{
+    padding: 20px;
+}
+footer h2{
+    color: var(--clr1);
 }
 
 /* logo */
@@ -302,7 +352,6 @@ footer {
     transition: height .3s width .3s;
     cursor: pointer;
 }
-
 
 /* icons */
 .icon {
@@ -370,6 +419,11 @@ footer {
     .grid-container{
         min-height: 50vh;
     }
+
+    .saved-memes .image{
+        height: 200px;
+        width: 200px;
+    }
     .hidden {
         display: none;
     }
@@ -377,7 +431,7 @@ footer {
 
 /* Medium */
 
-@media (min-width:830px) {
+@media (min-width:800px) {
     .menu-toggle-btn {
         display: none;
     }
@@ -396,7 +450,7 @@ footer {
 
     .grid-container{
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        min-height:700px;
+        min-height:470px;
     }
 
     .grid-container .image{
@@ -424,13 +478,15 @@ footer {
         text-align: center;
         height: 80vh;
         width: 50vw;
+        font-size: .8em;
     }
 
     .edit-tools .text-area {
         display: block;
         text-align: center;
-        margin: 10px auto;
+        margin: 50px auto;
         font-size: 1.5rem;
+        width: 90%;
     }
 
     .edit-tools>button {
@@ -442,7 +498,7 @@ footer {
 }
 
 /* desktop */
-@media (min-width: 960px) {
+@media (min-width: 1060px) {
  
     .sticker-container{
         font-size: 3rem;

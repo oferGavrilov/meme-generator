@@ -16,13 +16,14 @@
     <div class="main-screen full" onclick="onToggleMenu()"></div>
 
     <header class="main-header flex space-between full">
-        <img class="logo" src="img/LOGO.png"></img>
-        <button class="flexible-btn" onclick="onRandomMeme()">Im Flexible</button>
+        <img class="logo" src="img/LOGO.png" onclick="onGalleryPage()"></img>
+        <button data-trans="im-flexible" class="flexible-btn" onclick="onRandomMeme()">Im Flexible</button>
         <nav class="main-nav">
             <ul class="nav-bar flex clean-list">
-                <li><a href="#" onclick="onGalleryPage()">Gallery</a></li>
-                <li><a href="#" onclick="onSavedMemesPage()">Memes</a></li>
-                <li><a href="#">About</a></li>
+                <li><a href="#" data-trans="gallery" onclick="onGalleryPage()">Gallery</a></li>
+                <li><a href="#" data-trans="memes" onclick="onSavedMemesPage()">Memes</a></li>
+                <li><a href="#" data-trans="about">About</a></li>
+                <li><a href="#" data-trans="lang" onclick="onSetLang()">עברית</a></li>
             </ul>
         </nav>
         <button class="menu-toggle-btn" onclick="onToggleMenu()">☰</button>
@@ -31,7 +32,7 @@
     <section class="search-area main-layout full">
         <nav class="search-nav ">
 
-            <input class="search" type="search" list="searchKeywords" oninput="onFilterImages(this.value)"
+            <input data-trans="search" class="search" type="search" list="searchKeywords" oninput="onFilterImages(this.value)"
                 placeholder="SEARCH.." />
             <datalist id="searchKeywords">
                 <option value="funny"></option>
@@ -42,9 +43,8 @@
                 <option value="cute"></option>
             </datalist>
             <ul class="filter-tags flex  full">
-                <!-- <li><a href="#">funny</a></li>
-                <li><a href="#">men</a></li>
-                <li><a href="#">woman</a></li> -->
+                <li data-trans="all" onclick="onClearFilter()"><a href="">All</a></li>
+
             </ul>
 
         </nav>
@@ -62,7 +62,7 @@
             <div class="edit-container">
                 <div class="edit-tools">
 
-                    <input class="text-area" type="text" oninput="onAddText(this.value)" placeholder="Text line.." />
+                    <input data-trans="text-line" class="text-area" type="text" oninput="onAddText(this.value)" placeholder="Text line.." />
                     <button class="new-line-btn btn" title="New line" onclick="onSetNewLine()"><img class="icon"
                             src="icons/add.png"></button>
                     <button class="delete-btn btn" title="Delete line" onclick="onDeleteLine()"><img class="icon"
@@ -103,9 +103,12 @@
                     </div>
 
                     <div class="output-btns">
-                        <button class="share-btn btn" onclick="onShare(this)" title="Share meme">Share</button>
-                        <button class="save-btn btn" onclick="onSave()" title="Save meme">Save</button>
-                        <button class="download-btn btn"><a href="#" onclick="onDownload(this)">Download</a></button>
+                        <button data-trans="share" class="share-btn btn" onclick="onShare(this)"
+                            title="Share meme">Share</button>
+                        <button data-trans="save" class="save-btn btn" onclick="onSave()"
+                            title="Save meme">Save</button>
+                        <button data-trans="download" class="download-btn btn"><a href="#"
+                                onclick="onDownload(this)">Download</a></button>
                     </div>
                 </div>
 
@@ -116,23 +119,26 @@
         </section>
 
         <section class="saved-memes-container hidden">
-            <h1>saved memes</h1>
+            <h1 data-trans="saved-memes">saved memes</h1>
             <button onclick="closeEditor()"><img class="icon" src="icons/home.png" alt="home"></button>
             <div class="saved-memes full">
             </div>
         </section>
     </main>
 
-    <footer class="hidden1 full">
-        <!-- <img src="img/me.jpg" alt=""> -->
-        <h5>Programmer</h5>
-        <ul class="social-links">
-            <li><a href="#">Facebook</a></li>
-            <li><a href="#">Twitter</a></li>
-            <li><a href="#">Git hub</a></li>
+    <footer class="full flex">
+        <img class="logo" src="img/LOGO.png" alt="logo">
+
+        <ul class="social-links flex">
+            <li><a href="#"><img class="icon" src="icons/facebook.png" alt=""></a></li>
+            <li><a href="#"><img class="icon" src="icons/twitter.png" alt=""></a></li>
+            <li><a href="https://github.com/oferGavrilov" target="_blank"><img class="icon" src="icons/github.png"
+                        alt=""></a></li>
         </ul>
+        <h2>Copy rights © 2022</h2>
     </footer>
 
+    <script src="js/services/i18n.service.js"></script>
     <script src="js/services/storage.service.js"></script>
     <script src="js/services/meme.service.js"></script>
     <script src="js/services/utils.service.js"></script>

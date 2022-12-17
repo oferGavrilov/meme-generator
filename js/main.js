@@ -16,22 +16,38 @@ function onInit() {
 // that function get images from the service and render them into the gallery
 function renderGallery() {
     const images = getImages()
-    console.log(images)
+    const strUploadBtn = `<label class="image uploadImg" onchange="onImgInput(event)"><input name="uploadimg" type="file" /><img src="img/upload.png" /> </label>`
     const strHtml = images.map(image => {
         return `<img src="${image.url}" id="${image.url}" class="image" onclick="openEditor(this , '${image.id}')"/>`
     })
-
     const elGrid = document.querySelector('.grid-container')
-    elGrid.innerHTML = strHtml.join('')
+    elGrid.innerHTML =strUploadBtn + strHtml.join('')
+}
+
+
+function onImgInput(ev) {
+    loadImgFromInput(ev,renderMemes)
+    openEditor()
 }
 
 function renderKeywords() {
     const keywords = getKeywords()
     console.log(keywords)
     let strHtmls = keywords.map(keyword =>{
-        return `<li><a href="#">${keyword}</a></li>`
+        return `<li class="tag ${keyword}" data-trans="${keyword.toLowerCase()}" onclick="onFilterImages('${keyword}'); onSizeUpKeyword(this)"><a href="#" class="${keyword}">${keyword}</a></li>`
     })
-    document.querySelector('.filter-tags').innerHTML = strHtmls.join('')
+    document.querySelector('.filter-tags').innerHTML += strHtmls.join('')
+}
+
+function onSizeUpKeyword(elKeyword) {
+    sizeUpKeyword(elKeyword)
+    // renderKeywords()
+
+}
+
+function onClearFilter() {
+    clearFilter()
+    renderGallery()
 }
 
 
@@ -68,9 +84,8 @@ function closeEditor() {
 
 function renderSavedMemes() {
     const savedMemes = getFromLocalStorage()
-    console.log(savedMemes)
     if (!savedMemes) {
-        let strHtmls = `<h1> No saved memes yet ... </h1>`
+        let strHtmls = `<h1 data-trans="no-saved-memes"> No saved memes yet ... </h1>`
         document.querySelector('.saved-memes').innerHTML = strHtmls
     }
     else {
@@ -96,7 +111,6 @@ function onFilterImages(searchKey) {
 function onRandomMeme() {
     const images = getImages()
     let randomIdx = getRandomIntInclusive(1, images.length)
-    console.log(randomIdx)
     const imageUrl = document.getElementById(`img/${randomIdx}.jpg`)
     openEditor(imageUrl, randomIdx)
     makeRandomMeme()
@@ -117,4 +131,19 @@ function onGalleryPage() {
     document.querySelector('.grid-container').classList.remove('hidden')
     document.querySelector('.saved-memes-container').classList.add('hidden')
     clearCanvas()
+}
+
+function onSetLang() {
+    setLang()
+    if (gCurrLang === 'he') document.body.classList.add('rtl')
+    else document.body.classList.remove('rtl')
+    doTrans()
+}
+function doTrans() {
+    var els = document.querySelectorAll('[data-trans]')
+    els.forEach(function (el) {
+        var txt = getTrans(el.dataset.trans)
+        if (el.nodeName === 'INPUT') el.placeholder = txt
+        else el.innerText = txt
+    })
 }
