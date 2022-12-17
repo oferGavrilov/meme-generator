@@ -47,9 +47,9 @@ function setPositions() {
             y: gElCanvas.height / 2
         }
     }
-    // else if(meme.lines.length <= 0) {   /// if the user delete all the lines this func will create new positions lines
-    //     createLines()
-    // }
+    else{
+        createLines()
+    }
 }
 
 // this function draw image , text lines and border lines on the canvas
@@ -226,7 +226,12 @@ function onChangeFontFamily(fontFamily) {
 function onDownload(link) {
     resetSelectedLines() // clear selected lines on the model
     renderMemes(gCurrImage) // render image and clear selected lines on the canvas
-    downloadMeme(link) // active function on the main javascript file
+    downloadMeme(link) // active function on the service javascript file
+}
+
+function onShare() {
+    resetSelectedLines()
+    onUploadImg()
 }
 
 function onSave() {
@@ -268,6 +273,6 @@ function renderStickers() {
 
 function onSetSticker(sticker) {
     console.log(sticker)
-    addSticker(sticker)
+    setNewLine(sticker)
     renderMemes(gCurrImage)
 }

@@ -16,7 +16,7 @@
     <div class="main-screen full" onclick="onToggleMenu()"></div>
 
     <header class="main-header flex space-between full">
-        <h2 class="logo">Logo</h2>
+        <img class="logo" src="img/LOGO.png"></img>
         <button class="flexible-btn" onclick="onRandomMeme()">Im Flexible</button>
         <nav class="main-nav">
             <ul class="nav-bar flex clean-list">
@@ -28,11 +28,11 @@
         <button class="menu-toggle-btn" onclick="onToggleMenu()">☰</button>
     </header>
 
-    <section class="search-area flex  full">
-        <nav class="search-nav flex main-layout">
+    <section class="search-area main-layout full">
+        <nav class="search-nav ">
 
             <input class="search" type="search" list="searchKeywords" oninput="onFilterImages(this.value)"
-                placeholder="SEARCH" />
+                placeholder="SEARCH.." />
             <datalist id="searchKeywords">
                 <option value="funny"></option>
                 <option value="kids"></option>
@@ -41,10 +41,10 @@
                 <option value="celebrity"></option>
                 <option value="cute"></option>
             </datalist>
-            <ul class="filter-tags flex clean-list full">
-                <li><a href="#">funny</a></li>
+            <ul class="filter-tags flex  full">
+                <!-- <li><a href="#">funny</a></li>
                 <li><a href="#">men</a></li>
-                <li><a href="#">woman</a></li>
+                <li><a href="#">woman</a></li> -->
             </ul>
 
         </nav>
@@ -103,7 +103,7 @@
                     </div>
 
                     <div class="output-btns">
-                        <button class="share-btn btn" onclick="onShare()" title="Share meme">Share</button>
+                        <button class="share-btn btn" onclick="onShare(this)" title="Share meme">Share</button>
                         <button class="save-btn btn" onclick="onSave()" title="Save meme">Save</button>
                         <button class="download-btn btn"><a href="#" onclick="onDownload(this)">Download</a></button>
                     </div>

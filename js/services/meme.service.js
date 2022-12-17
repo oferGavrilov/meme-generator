@@ -49,7 +49,8 @@ let gMeme = {
 }
 
 function clearCanvas() {
-    gMeme.lines.forEach(line=> line.text = '')
+    document.querySelector('.text-area').value = ''
+    gMeme.lines.splice(0, gMeme.lines.length)
 }
 
 function setSelectedImgID(id) {
@@ -60,10 +61,6 @@ function setSelectedImgID(id) {
 function addText(text) {
     console.log(gMeme.lines)
     gMeme.lines[gMeme.selectedLineIdx].text = text
-}
-
-function addSticker(sticker) {
-    gMeme.lines[gMeme.selectedLineIdx].text += sticker
 }
 
 function getMeme() {
@@ -201,38 +198,79 @@ function changeFontFamily(fontFamily) {
 }
 
 function createLines() {
-    for(let i = 0; i < 3; i++) {
+    for (let i = 0; i < 3; i++) {
         gMeme.lines.push({
-            pos:{x:0,y:0},
-            text:'',
-            fillColor:'white',
-            strokeColor:'black',
+            pos: { x: 0, y: 0 },
+            text: '',
+            fillColor: 'white',
+            strokeColor: 'black',
             textAlign: 'center',
-            fontSize:30,
+            fontSize: 30,
             fontFamily: 'impact',
-            isSelected:false
+            isSelected: false
         })
     }
+    gMeme.selectedLineIdx = 0
     setPositions()
 }
 
 //edit
 function saveMeme(meme) {
-    let lines =  gMeme.lines
+    let lines = gMeme.lines
     console.log('meme: ', meme)
     let savedMemes = loadFromStorage(MEME_STORAGE_KEY)
     // console.log('savedMemes' , savedMemes)
 
-    if(!savedMemes || savedMemes === null){
-        savedMemes = [{meme:meme, lines:lines}]
-        console.log('savedMemes' , savedMemes)
-        saveToStorage(MEME_STORAGE_KEY,savedMemes)
+    if (!savedMemes || savedMemes === null) {
+        savedMemes = [{ meme: meme, lines: lines }]
+        console.log('savedMemes', savedMemes)
+        saveToStorage(MEME_STORAGE_KEY, savedMemes)
         return
     }
-    savedMemes.push({meme:meme, lines:lines})
+    savedMemes.push({ meme: meme, lines: lines })
     saveToStorage(MEME_STORAGE_KEY, savedMemes)
 }
 
-function getFromLocalStorage(){
+function getFromLocalStorage() {
     return loadFromStorage(MEME_STORAGE_KEY)
 }
+
+
+//this function activate when the user click on download meme
+function downloadMeme(link) {
+    // resetSelectedLines()
+    const data = gElCanvas.toDataURL()
+    console.log(link)
+    link.href = data
+    link.download = 'my-meme.jpg'
+}
+
+//this function share meme on facebook
+function onUploadImg() {
+    const imgDataUrl = gElCanvas.toDataURL('image/jpeg') // Gets the canvas content as an image format
+
+    // A function to be called if request succeeds
+    function onSuccess(uploadedImgUrl) {
+        // Encode the instance of certain characters in the url
+        const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}`)
+    }
+    // Send the image to the server
+    doUploadImg(imgDataUrl, onSuccess)
+}
+
+function doUploadImg(imgDataUrl, onSuccess) {
+    // Pack the image for delivery
+    const formData = new FormData()
+    formData.append('img', imgDataUrl)
+    console.log('formData:', formData)
+    // Send a post req with the image to the server
+    fetch('//ca-upload.com/here/upload.php', { method: 'POST', body: formData })
+        .then(res => res.text())
+        .then(url => {
+            console.log('url:', url)
+            onSuccess(url)
+        })
+}
+
+

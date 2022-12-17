@@ -10,6 +10,7 @@ function onInit() {
     gCtx = gElCanvas.getContext('2d')
 
     renderGallery()
+    renderKeywords()
 }
 
 // that function get images from the service and render them into the gallery
@@ -23,6 +24,16 @@ function renderGallery() {
     const elGrid = document.querySelector('.grid-container')
     elGrid.innerHTML = strHtml.join('')
 }
+
+function renderKeywords() {
+    const keywords = getKeywords()
+    console.log(keywords)
+    let strHtmls = keywords.map(keyword =>{
+        return `<li><a href="#">${keyword}</a></li>`
+    })
+    document.querySelector('.filter-tags').innerHTML = strHtmls.join('')
+}
+
 
 // this function activated when the user click on the menu and on the page to close menu
 function onToggleMenu() {
@@ -78,14 +89,9 @@ function onFilterImages(searchKey) {
     renderGallery()
 }
 
-//this function activate when the user click on download meme
-function downloadMeme(link) {
-    // resetSelectedLines()
-    const data = gElCanvas.toDataURL()
-    console.log(link)
-    link.href = data
-    link.download = 'my-meme.jpg'
-}
+
+
+
 
 function onRandomMeme() {
     const images = getImages()
@@ -95,12 +101,6 @@ function onRandomMeme() {
     openEditor(imageUrl, randomIdx)
     makeRandomMeme()
 }
-
-
-
-
-
-
 
 /// pages ///
 function onSavedMemesPage() {

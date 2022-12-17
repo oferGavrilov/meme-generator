@@ -2,6 +2,7 @@
 
 let gFilterBy
 
+let gKeywords = ['celebrity', 'animal' , 'kids' , 'funny' , 'men']
 let gStickers = ['😂','😭','💣','😈','👱‍♂️']
 
 let gImgs =[
@@ -120,4 +121,7 @@ function getImages() {
 
 function getStickers() {
     return gStickers
+}
+function getKeywords() {
+    return gKeywords
 }
