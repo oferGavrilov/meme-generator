@@ -1,4 +1,6 @@
-gTrans = {
+'use strict'
+
+let gTrans = {
     'gallery' : {
         en : 'Gallery',
         he : 'גלריה'
@@ -78,7 +80,7 @@ gTrans = {
 
 }
 
-gCurrLang = 'en';
+let gCurrLang = 'en';
 
 function getTrans(transKey) {
     var keyTrans = gTrans[transKey]
