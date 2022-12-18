@@ -222,6 +222,7 @@ a {
     margin: auto;
     margin: 50px auto 10px;
     font-size: 1.5rem;
+    width:90%;
 }
 
 .edit-tools>button {
