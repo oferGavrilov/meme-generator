@@ -119,22 +119,36 @@ function getImages() {
     return gImgs
 }
 
+function loadImgFromInput(ev, imageReady) {
+    const reader = new FileReader()
+    reader.onload = (event) => {
+        let img = new Image()
+        img.src = event.target.result
+        img.onload = () => {
+            imageReady(img)
+        }
+    }
+    reader.readAsDataURL(ev.target.files[0])
+}
+function setUploadedImage(image) {
+    createNewImg(image)
+    renderGallery()
+}
 
-// function loadImgFromInput(ev) {
-//     const reader = new FileReader()
-//     reader.onload = (event) => {
-//         let img = new Image()
-//         img.src = event.target.result
-//         img.onload = () => onEditorInit(img)
-//         console.log(img)
-//     }
-//     reader.readAsDataURL(ev.target.files[0])
-// }
 
+function createNewImg(img) {
+    let newImg ={
+        id:gImgs.length +1,
+        url: img.src
+    }
+    gImgs.push(newImg)
+}
 
 //this function increase tags font size by clicking on them
 function sizeUpKeyword(elKeyword) {
     let key = elKeyword.children[0]
+
+    console.log(key)
     let style = window.getComputedStyle(key,null).getPropertyValue('font-size')
     let currentSize = parseFloat(style)
     key.style.fontSize = (currentSize + 2 ) + 'px'

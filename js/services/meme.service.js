@@ -216,18 +216,17 @@ function createLines() {
 
 //edit
 function saveMeme(meme) {
-    let lines = gMeme.lines
-    console.log('meme: ', meme)
+    // let lines = gMeme.lines
+    // console.log('meme: ', meme)
     let savedMemes = loadFromStorage(MEME_STORAGE_KEY)
     // console.log('savedMemes' , savedMemes)
 
     if (!savedMemes || savedMemes === null) {
-        savedMemes = [{ meme: meme, lines: lines }]
-        console.log('savedMemes', savedMemes)
+        savedMemes = [meme]
         saveToStorage(MEME_STORAGE_KEY, savedMemes)
         return
     }
-    savedMemes.push({ meme: meme, lines: lines })
+    savedMemes.push(meme)
     saveToStorage(MEME_STORAGE_KEY, savedMemes)
 }
 

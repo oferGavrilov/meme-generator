@@ -17,9 +17,8 @@
 
     <header class="main-header flex space-between full">
         <img class="logo" src="img/LOGO.png" onclick="onGalleryPage()"></img>
-        <button data-trans="im-flexible" class="flexible-btn" onclick="onRandomMeme()">Im Flexible</button>
         <nav class="main-nav">
-            <ul class="nav-bar flex clean-list">
+            <ul class="nav-bar flex clean-list" onclick="onToggleMenu()">
                 <li><a href="#" data-trans="gallery" onclick="onGalleryPage()">Gallery</a></li>
                 <li><a href="#" data-trans="memes" onclick="onSavedMemesPage()">Memes</a></li>
                 <li><a href="#" data-trans="about">About</a></li>
@@ -29,11 +28,11 @@
         <button class="menu-toggle-btn" onclick="onToggleMenu()">☰</button>
     </header>
 
-    <section class="search-area main-layout full">
+    <section class="search-area main-layout">
         <nav class="search-nav ">
 
-            <input data-trans="search" class="search" type="search" list="searchKeywords" oninput="onFilterImages(this.value)"
-                placeholder="SEARCH.." />
+            <input data-trans="search" class="search" type="search" list="searchKeywords"
+                oninput="onFilterImages(this.value)" placeholder="SEARCH.." />
             <datalist id="searchKeywords">
                 <option value="funny"></option>
                 <option value="kids"></option>
@@ -42,6 +41,7 @@
                 <option value="celebrity"></option>
                 <option value="cute"></option>
             </datalist>
+
             <ul class="filter-tags flex  full">
                 <li data-trans="all" onclick="onClearFilter()"><a href="">All</a></li>
 
@@ -51,6 +51,8 @@
     </section>
 
     <main>
+        <button data-trans="im-flexible" class="flexible-btn" onclick="onRandomMeme()">Im Flexible</button>
+
         <div class="grid-container main-layout">
 
         </div>
@@ -62,7 +64,8 @@
             <div class="edit-container">
                 <div class="edit-tools">
 
-                    <input data-trans="text-line" class="text-area" type="text" oninput="onAddText(this.value)" placeholder="Text line.." />
+                    <input data-trans="text-line" class="text-area" type="text" oninput="onAddText(this.value)"
+                        placeholder="Text line.." />
                     <button class="new-line-btn btn" title="New line" onclick="onSetNewLine()"><img class="icon"
                             src="icons/add.png"></button>
                     <button class="delete-btn btn" title="Delete line" onclick="onDeleteLine()"><img class="icon"

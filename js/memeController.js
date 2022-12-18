@@ -1,16 +1,16 @@
 'use strict'
 let gIsClickOnText = false
 let gStartPos
+let gEditSavedMeme = false
 
 const THOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 
 //this function activate when the user selected an image
 function onEditorInit() {
-    setPositions() // set positions on the canvas
+    // setPositions() // set positions on the canvas
     resizeCanvas() // resize the canvas by the screen size
     addListeners() // add events listeners - touch and mouse
     renderStickers()
-
 }
 
 // this function resize the canvas by the properties of canvas container
@@ -34,31 +34,32 @@ function onAddText(text) {
 // set positions on the canvas by top then bottom then middle 
 function setPositions() {
     const meme = getMeme()
-    if (meme.lines.length > 1) { //top
-        meme.lines[0].pos = {
-            x: gElCanvas.width / 2,
-            y: 50
-        }
-        meme.lines[1].pos = { //bottom
-            x: gElCanvas.width / 2,
-            y: gElCanvas.height - 50
-        }
-        meme.lines[2].pos = { //middle
-            x: gElCanvas.width / 2,
-            y: gElCanvas.height / 2
-        }
-    }
-    else{
+    if(gEditSavedMeme) return
+    if (meme.lines.length <= 0) {
         createLines()
+        return
+    }
+    //top
+    meme.lines[0].pos = {
+        x: gElCanvas.width / 2,
+        y: 50
+    }
+    meme.lines[1].pos = { //bottom
+        x: gElCanvas.width / 2,
+        y: gElCanvas.height - 50
+    }
+    meme.lines[2].pos = { //middle
+        x: gElCanvas.width / 2,
+        y: gElCanvas.height / 2
     }
 }
 
 // this function draw image , text lines and border lines on the canvas
 function renderMemes(image) {
-    console.log(image)
     gCtx.drawImage(image, 0, 0, gElCanvas.width, gElCanvas.height)
 
     const memes = getMeme()
+
     const lines = memes.lines
 
     lines.forEach(line => makeLineText(line)) // render text
@@ -133,6 +134,7 @@ function getEvPos(ev) {
             y: ev.pageY - ev.target.offsetTop - ev.target.clientTop,
         }
     }
+    console.log(gMeme.lines)
     return pos
 }
 
@@ -238,8 +240,14 @@ function onShare() {
 function onSave() {
     resetSelectedLines() // reset selected lines on the model
     renderMemes(gCurrImage)
+    const meme = getMeme()
+    // const url = `img/${meme.selectedImgId}.jpg`
+    // gSavedMemes.push(url)
 
-    const savedMeme = gElCanvas.toDataURL('image/jpeg')
+    const savedMeme = {
+        data: meme,
+        url: gElCanvas.toDataURL('image/jpeg')
+    }
     saveMeme(savedMeme)
 }
 
@@ -269,11 +277,9 @@ function renderStickers() {
         return `<div class="sticker" onclick="onSetSticker('${sticker}')">${sticker}</div>`
     })
     document.querySelector('.sticker-container').innerHTML = strHtmls.join('')
-    console.log(stickers)
 }
 
 function onSetSticker(sticker) {
-    console.log(sticker)
     setNewLine(sticker)
     renderMemes(gCurrImage)
 }
